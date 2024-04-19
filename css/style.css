@@ -603,7 +603,7 @@ input[type=email]:focus, input[type=password]:focus, input[type=text]:focus, inp
 
 .top-header .container {
   padding-top: 35px;
-  padding-bottom: 35px;
+  padding-bottom: 25px;
   border-bottom: 1px solid #dedede;
 }
 .top-header .dropdown-menu {
@@ -629,7 +629,7 @@ input[type=email]:focus, input[type=password]:focus, input[type=text]:focus, inp
 }
 @media (max-width: 768px) {
   .top-header .contact-number {
-    text-align: center;
+    text-align: left;
     padding: 10px 0;
   }
 }
@@ -725,7 +725,7 @@ input[type=email]:focus, input[type=password]:focus, input[type=text]:focus, inp
 
 .navigation {
   margin-bottom: 0;
-  padding: 10px 0;
+  padding: 1px 0;
 }
 .navigation .menu-title {
   display: none;
