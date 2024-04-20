@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "INSERT INTO user (account, password, email, level) VALUES ('$account', '$password', '$email', '$level')";
 
     if (mysqli_query($link, $sql)) {
-        header("Location: http://localhost/SA-/login.html");
+        echo "<script>alert('註冊成功！'); window.location.href = 'http://localhost/SA-/login.html';</script>";
         exit();
     } 
     else {
