@@ -52,32 +52,55 @@
           <a class="logo" href="index.html">
             <img src="images/logo.png" alt="">
           </a>
-          <h2 class="text-center">Create Your Account</h2>
-          <form class="text-left clearfix" action="index.html">
-            <div class="form-group">
-              <input type="text" class="form-control"  placeholder="帳號名稱">
+          
+            
+          <ul class="nav nav-tabs my-5">
+            <li class="active"><a href="#user" data-toggle="tab">買家</a></li>
+            <li><a href="#manager" data-toggle="tab">賣家</a></li>
+        </ul>
+        
+        <div class="tab-content mt-4">
+            <div class="tab-pane fade in active" id="user">
+                <form action="sign.php" method="post">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="account" placeholder="帳號名稱">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="password" placeholder="密碼">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" name="email" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" name="level" value="1">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-main text-center">Sign In</button>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-              <input type="password" class="form-control"  placeholder="密碼">
+        
+            <div class="tab-pane fade" id="manager">
+                <form action="sign.php" method="post">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="account" placeholder="帳號名稱">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="password" placeholder="密碼">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" name="email" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" name="level" value="2">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-main text-center">Sign In</button>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-              <input type="email" class="form-control"  placeholder="Email">
-            </div>
-            <div class="form-group">
-              <select class="form-control" id="role" name="role">
-                <option value="">請選擇</option>
-                <option value="buyer">買家</option>
-                <option value="seller">賣家</option>
-              </select>
-            </div>
-
-
-            <div class="text-center">
-              <button type="submit" class="btn btn-main text-center">Sign In</button>
-            </div>
-          </form>
-          <p class="mt-20">Already hava an account ?<a href="login.html"> Login</a></p>
-          <p><a href="forget-password.html"> Forgot your password?</a></p>
+        </div>
+        
         </div>
       </div>
     </div>
