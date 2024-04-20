@@ -57,7 +57,7 @@
 				<div class="col-md-4 col-xs-12 col-sm-4">
 					<div class="contact-number">
 						<i class="archive"></i>
-						<span style="font-size: 15px;">惜物盲盒 Mysterious Box!</span>
+						<span style="font-size: 15px; font-weight: bold; color: #333; font-family: 'Arial', sans-serif;">惜物盲盒 <span style="font-style: italic; font-family: 'Regular 400', sans-serif;">Mysterious Box!</span></span>
 					</div>
 				</div>
 				<div class="col-md-4 col-xs-12 col-sm-4">
@@ -119,7 +119,6 @@
 
 
 					</ul><!-- / .nav .navbar-nav .navbar-right -->
-<<<<<<< HEAD
 				</div>
 			</div>
 		</div>
@@ -201,68 +200,95 @@
 	</section>
 	<div class="page-wrapper">
 		<div class="checkout shopping">
-		   <div class="container">
-			  <div class="row">
-				 <div class="col-md-8" style="width: 70%;">
-					<div class="block billing-details">
-					   <h4 class="widget-title" style="font-weight: bold;">Product Information</h4>
-						 <form class="checkout-form">
-							 <table style="width: 100%;">
-								 <style>
-									 td{
-										 padding: 10px;
-										 text-align: center;
-									 }
-								 </style>
-								 <tr>
-									 <td >名稱</td>
-									 <td colspan="3"><input type="text" class="form-control" id="full_name" placeholder="Product Name Please!"></td>
-								 </tr>
-								 <tr>
-									 <td >種類</td>
-									 <td colspan="3">
-										 <select class="form-control" id="full_name">
-											 <option value="option1">首飾</option>
-											 <option value="option2">公仔</option>
-											 <option value="option3">服飾</option>
-										 </select>
-									 </td>
-								 </tr>
-								 <tr>
-									 <td >盲盒介紹</td>
-									 <td colspan="3"><textarea class="form-control" id="user_address" rows="5" placeholder="You can list the potiential items that might appear in your Mystery Box!"></textarea></td>
-								 </tr>
-								 <tr >
-									 <td>價錢</td>
-									 <td ><input  type="text" class="form-control" id="user_post_code" name="zipcode" value="" placeholder="Price"></td>
-									 <td>數量</td>
-									 <td ><input  type="text" class="form-control" id="user_city" name="city" value="" placeholder="Quantity"></td>
-								 </tr>
-								 
-								 
-								 
-							 </table>
-						 </form>
-					 
-					 
+			<form action="dblink.php" method="post" enctype="multipart/form-data">
+				<input type=hidden name="dbaction" value="insert">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-8" style="width: 70%;">
+							<div class="block billing-details">
+							<h4 class="widget-title" style="font-weight: bold;">Product Information</h4>
+								<form class="checkout-form">
+									<table style="width: 100%;">
+										<style>
+											td{
+												padding: 10px;
+												text-align: center;
+											}
+										</style>
+										<tr>
+											<td style="background-color: ;">名稱</td>
+											<td colspan="3"><input type="text" class="form-control" id="full_name" placeholder="Product Name Please!"></td>
+										</tr>
+										<tr>
+											<td >種類</td>
+											<td colspan="3">
+												<select class="form-control" id="full_name">
+													<option value="option1">首飾</option>
+													<option value="option2">公仔</option>
+													<option value="option3">服飾</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td >盲盒介紹</td>
+											<td colspan="3"><textarea class="form-control" id="user_address" rows="5" placeholder="You can list the potiential items that might appear in your Mystery Box!"></textarea></td>
+										</tr>
+										<tr >
+											<td>價錢</td>
+											<td ><input  type="text" class="form-control" id="user_post_code" name="zipcode" value="" placeholder="Price"></td>
+											<td>數量</td>
+											<td ><input  type="text" class="form-control" id="user_city" name="city" value="" placeholder="Quantity"></td>
+										</tr>
+										
+										
+										
+									</table>
+								</form>
+							
+							
+							</div>
+							
+						</div>
+						<div class="col-md-4" style="width: 30%;">
+							<div class="product-checkout-details">
+								<div class="block">
+									<h4 class="widget-title" style="font-weight: bold;">Add Photo</h4>
+									<div class="media product-card">
+										<input type="file" id="upload" name="upload" accept="image/*" style="display: inline-block ;">
+										
+									</div>
+								</div>
+								
+								<div id="image-preview"></div> <!-- 放在這裡 -->
+								
+							</div>
+						</div>
+						
+						<style>
+							.product-card:hover img {
+								transform: scale(1.1); /* 鼠標懸停時圖片放大 10% */
+							}
+						</style>
+						
+						<script>
+							document.getElementById('upload').addEventListener('change', function(event) {
+								var input = event.target;
+								var reader = new FileReader();
+								reader.onload = function() {
+									var img = document.createElement('img');
+									img.src = reader.result;
+									img.style.height = '220px'; // 設置圖片高度
+									document.getElementById('image-preview').innerHTML = ''; // 清空預覽區域
+									document.getElementById('image-preview').appendChild(img); // 將圖片添加到預覽區域
+								};
+								reader.readAsDataURL(input.files[0]); // 讀取所選檔案的 Data URL
+							});
+						</script>
+						
+						
 					</div>
-					
-				 </div>
-				 <div class="col-md-4" style="width: 30%;">
-					<div class="product-checkout-details">
-					   <div class="block">
-						  <h4 class="widget-title" style="font-weight: bold;">Add Photo</h4>
-						  <div class="media product-card">
-							 <img src="https://pic.mksucai.com/00/17/16/0e158c46036df40c.webp" style="height: 220px;" alt="">
-						  </div>
-						  <!-- <div class="verified-icon">
-							 <img src="https://bcnretail.kuroco.app/files/user/201911291708_1.jpg?v=1575014890">
-						  </div> -->
-					   </div>
-					</div>
-				 </div>
-			  </div>
-		   </div>
+				</div>
+			</form>
 		   <div class="block">
 			 <div class="checkout-product-details">
 				<div class="payment">
@@ -337,7 +363,6 @@
 				</div>
 			</div>
 		</div>
-=======
 				</div>
 			</div>
 		</div>
@@ -537,7 +562,6 @@
 				</div>
 			</div>
 		</div>
->>>>>>> c0a9ed3f3e762b32df1a23cbfc2aeb6f58b10b7d
 	</footer>
 	<!-- 
     Essential Scripts
