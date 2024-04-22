@@ -22,6 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['user_account'] = $account;
             $_SESSION['user_password'] = $user['password'];
             $_SESSION['user_level'] = $user['acco_level'];
+            $_SESSION['user_email'] = $user['email'];
 
             $_SESSION['user_id'] = $user['ID'];
 

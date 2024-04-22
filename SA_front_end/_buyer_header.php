@@ -66,8 +66,7 @@
                             <div class="col-sm-3 col-xs-12">
                                 <ul>
                                     <li role="separator" class="divider"></li>
-                                    <li><a href="index.php">Logout </a></li>
-
+                                    <li><a href="../SA_back_end/logout.php">Logout </a></li>
                                 </ul>
                             </div>
 

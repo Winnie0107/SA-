@@ -7,7 +7,7 @@ if (!$link) {
     die("Error" . mysqli_connect_error());
 }
 
-$query = "SELECT * FROM product ORDER BY PNumber DESC LIMIT 6";
+$query = "SELECT * FROM product WHERE quantity > 0 ORDER BY PNumber DESC LIMIT 6";
 $result = mysqli_query($link, $query);
 
 if (!$result) {
@@ -65,7 +65,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     echo '<br>';
     echo '<form action="../SA_back_end/buyer_add_to_cart.php" method="post">';
     echo '<input type="hidden" name="product_number" value="' . $row['PNumber'] . '">';
-    echo '<a href="cart.html" class="btn btn-main">Add to cart</a>';
+    echo '<a href="../SA_back_end/buyer_add_to_cart.php?product_number=' . $product_number . '" class="btn btn-main">Add to cart</a>';
     echo '</form>';
 
     echo '</div>';

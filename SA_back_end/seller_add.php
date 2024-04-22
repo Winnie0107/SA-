@@ -21,8 +21,8 @@ if (isset($_POST['submit'])) {
 
     $data = addslashes(file_get_contents($form_data));
 
-    $result = mysqli_query($link, "INSERT INTO product (seller_ID, PName, category, price, details, quantity, img, selled) 
-        VALUES ('$user_id', '$PName', '$category', '$price', '$details', '$quantity', '$data', '$selled')");
+    $result = mysqli_query($link, "INSERT INTO product (seller_ID, PName, category, price, details, quantity, img) 
+        VALUES ('$user_id', '$PName', '$category', '$price', '$details', '$quantity', '$data')");
 
 
     if ($result) {

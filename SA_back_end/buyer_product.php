@@ -9,7 +9,7 @@ if (!$link) {
     die("Error" . mysqli_connect_error());
 }
 
-$query = "SELECT * FROM product";
+$query = "SELECT * FROM product WHERE quantity > 0";
 $result = mysqli_query($link, $query);
 
 if (!$result) {
@@ -64,7 +64,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     echo '<p class="product-short-description">' . $row['details'] . '</p>';
     echo '<a href="product-single.html" class="btn btn-transparent">剩餘數量：' . $row['quantity'] . '</a>';
     echo '<br>';
-    echo '<a href="cart.html" class="btn btn-main">Add to cart</a>';
+    echo '<a href="../SA_back_end/buyer_add_to_cart.php?product_number=' . $product_number . '" class="btn btn-main">Add to cart</a>';
     echo '</div>';
     echo '</div>';
     echo '</div>';

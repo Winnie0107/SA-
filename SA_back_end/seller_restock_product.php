@@ -9,7 +9,7 @@ if (!$link) {
     die("Error" . mysqli_connect_error());
 }
 
-$query = "SELECT * FROM product WHERE seller_ID = '$user_id' AND quantity > 0";
+$query = "SELECT * FROM product WHERE seller_ID = '$user_id' AND quantity = 0";
 $result = mysqli_query($link, $query);
 
 if (!$result) {

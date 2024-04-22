@@ -22,7 +22,7 @@
         <div class="container">
             <div class="row">
                 <div class="title text-center">
-                    <h2><strong>最新上架 New</strong></h2>
+                    <h2><strong>最新盲盒 New</strong></h2>
                 </div>
             </div>
             <div class="row">
