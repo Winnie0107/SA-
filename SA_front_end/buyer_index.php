@@ -18,7 +18,7 @@
     <!-- Slider -->
     <?php include '_buyer_slider.html'; ?>
 
-    <section class="products section bg-gray">
+	<section class="products section bg-gray">
         <div class="container">
             <div class="row">
                 <div class="title text-center">
@@ -31,6 +31,7 @@
             </div>
         </div>
     </section>
+
 
     <?php include '_footer.html'; ?>
 
