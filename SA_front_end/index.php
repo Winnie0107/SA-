@@ -83,7 +83,7 @@
             </div>
             <div class="row">
                 <!-- Products -->
-                <?php include '../SA_back_end/buyer_index.php'; ?>
+                <?php include '../SA_back_end/visiter_index.php'; ?>
             </div>
         </div>
     </section>
