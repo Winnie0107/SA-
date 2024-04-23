@@ -65,7 +65,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     echo '<br>';
     echo '<form action="../SA_back_end/buyer_add_to_cart.php" method="post">';
     echo '<input type="hidden" name="product_number" value="' . $row['PNumber'] . '">';
-    echo '<a href="cart.html" class="btn btn-main">Add to cart</a>';
+    echo '<a href="../SA_front_end/login.php?" class="btn btn-main">Add to cart</a>';
     echo '</form>';
 
     echo '</div>';

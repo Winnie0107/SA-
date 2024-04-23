@@ -1,7 +1,3 @@
-<?php
-include '../SA_back_end/buyer_cart.php';
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,10 +11,7 @@ include '../SA_back_end/buyer_cart.php';
             color: red;
             background: none;
         }
-        td {
-            padding: 10px;
-            text-align: center;
-        }
+
         .page-wrapper {
             padding: 20px 0;
         }
@@ -33,9 +26,6 @@ include '../SA_back_end/buyer_cart.php';
     <!-- Menu -->
     <?php include '_buyer_menu.html'; ?>
 
-    <!-- 購物車資料 -->
-    <?php include '../SA_back_end/buyer_cart.php';?>
-
     <section class="page-header">
         <div class="container">
             <div class="row">
@@ -44,7 +34,7 @@ include '../SA_back_end/buyer_cart.php';
                         <h1 class="page-name">Cart</h1>
                         <ol class="breadcrumb">
                             <li><a href="buyer_index.php">Home</a></li>
-                            <li class="active">cart</li>
+                            <li class="active">購物車</li>
                         </ol>
                     </div>
                 </div>
@@ -57,7 +47,28 @@ include '../SA_back_end/buyer_cart.php';
                 <div class="col-md-8 col-md-offset-2">
                     <div class="block">
                         <div class="product-list">
-                            <form method="post">
+                            
+                            <form method="post" action="../SA_back_end/delete_cart_item.php">
+                                <?php
+                                session_start();
+
+                                $link = mysqli_connect('localhost', 'root', '12345678', 'box');
+
+                                if (!$link) {
+                                    die("Error" . mysqli_connect_error());
+                                }
+
+                                $cart_id = $_SESSION['SNumber'];
+                                $query = "SELECT * FROM `shopping cart item` 
+                                JOIN product ON `shopping cart item`.PNumber = product.PNumber 
+                                WHERE SNumber = $cart_id";
+
+                                $result = mysqli_query($link, $query);
+
+                                if (!$result) {
+                                    die("Error" . mysqli_error($link));
+                                }
+                                ?>
                                 <table class="table">
                                     <tr>
                                         <th></th>
@@ -73,7 +84,7 @@ include '../SA_back_end/buyer_cart.php';
                                         echo "<td>" . $row['PName'] . "</td>";
                                         echo "<td>" . $row['price'] . "</td>";
                                         echo "<td>" . $row['quantity'] . "</td>";
-                                        echo "<td><button type='submit'>移出購物車</button></td>";
+                                        echo "<td><button type='submit' name='SINumber' value='" . $row['SINumber'] . "'>移出購物車</button></td>";
                                         echo "</tr>";
                                     }
                                     ?>

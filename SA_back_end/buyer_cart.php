@@ -18,5 +18,5 @@ $result = mysqli_query($link, $query);
 if (!$result) {
     die("Error: " . mysqli_error($link));
 }
-
+mysqli_close($link);
 ?>
