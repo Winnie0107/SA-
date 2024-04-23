@@ -30,7 +30,7 @@
                     <div class="content">
                         <h1 class="page-name">我的訂單</h1>
                         <ol class="breadcrumb">
-                            <li><a href="seller.html">Home</a></li>
+                            <li><a href="buyer.html">Home</a></li>
                             <li class="active">我的訂單</li>
                         </ol>
                     </div>

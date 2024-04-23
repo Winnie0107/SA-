@@ -8,7 +8,21 @@ if (!$link) {
     die("資料庫連接失敗: " . mysqli_connect_error());
 }
 
-$query = "SELECT p_order.date AS order_date, 
+if(isset($_POST['cancel_order'])) {
+    // 获取订单号
+    $order_number = $_POST['order_number'];
+    
+    // 更新订单状态为 0
+    $update_query = "UPDATE p_order SET state = 0 WHERE ONumber = $order_number";
+    $update_result = mysqli_query($link, $update_query);
+
+    if (!$update_result) {
+        die("Error updating order: " . mysqli_error($link));
+    }
+}
+
+$query = "SELECT p_order.ONumber, 
+                p_order.date AS order_date, 
                 p_order.total_price, 
                 p_order.phone_number, 
                 p_order.lineID, 
@@ -19,7 +33,7 @@ $query = "SELECT p_order.date AS order_date,
                 INNER JOIN product ON `order item`.PNumber = product.PNumber
                 INNER JOIN p_order ON `order item`.ONumber = p_order.ONumber
                 INNER JOIN user ON p_order.buyer_ID = user.ID
-                WHERE product.seller_ID = '$user_id'
+                WHERE product.seller_ID = '$user_id' AND p_order.state = 1
                 GROUP BY `order item`.ONumber
                 ORDER BY `order item`.ONumber DESC
                 ";
@@ -39,6 +53,7 @@ echo '<th>總價</th>';
 echo '<th>用戶名稱</th>';
 echo '<th>電話號碼</th>';
 echo '<th>LINE ID</th>';
+echo '<th>取消訂單</th>';
 echo '</tr>';
 echo '</thead>';
 echo '<tbody>';
@@ -52,6 +67,13 @@ while ($row = mysqli_fetch_assoc($result)) {
     echo '<td>' . $row['account'] . '</td>';
     echo '<td>' . $row['phone_number'] . '</td>';
     echo '<td>' . $row['lineID'] . '</td>';
+    // 添加取消订单按钮，并包含订单号
+    echo '<td>';
+    echo '<form method="post">';
+    echo '<input type="hidden" name="order_number" value="' . $row['ONumber'] . '">';
+    echo '<button type="submit" name="cancel_order" onclick="return confirm(\'是否確定取消此訂單？\')">取消</button>';
+    echo '</form>';
+    echo '</td>';
     echo '</tr>';
 }
 
