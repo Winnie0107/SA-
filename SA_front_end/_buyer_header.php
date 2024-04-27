@@ -49,15 +49,20 @@
 
                     <!-- Search -->
                     <li class="dropdown search dropdown-slide">
-                        <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
-                                class="tf-ion-ios-search-strong"></i> Search</a>
-                        <ul class="dropdown-menu search-dropdown">
-                            <li>
-                                <form action="post"><input type="search" class="form-control" placeholder="Search...">
-                                </form>
-                            </li>
-                        </ul>
-                    </li>
+    <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i class="tf-ion-ios-search-strong"></i> Search</a>
+    <ul class="dropdown-menu search-dropdown">
+        <li>
+        <form method="POST" action="../SA_front_end/search_result.php">
+    <input type="text" name="search" class="form-control" placeholder="Search..." onkeydown="if(event.keyCode==13) { this.form.submit(); return false; }">
+    <input type="submit" style="display: none;">
+</form>
+
+
+        </li>
+    </ul>
+</li>
+
+
 
                     <li class="dropdown account dropdown-slide">
                         <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
