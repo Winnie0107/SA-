@@ -66,7 +66,6 @@ while ($row = mysqli_fetch_assoc($result)) {
         echo '<td>$' . $row['total_price'] . '</td>';
         echo '<td>' . $row['seller_account'] . '</td>'; // 输出新的卖家名称
         $current_seller = $row['seller_account']; // 更新当前的卖家名称
-        echo '<td>'; // 开始订单状态单元格
     }
 }
 

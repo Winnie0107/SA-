@@ -3,6 +3,12 @@
 
 <head>
     <title>搜尋結果</title>
+    <style>
+        .product-item .product-thumb img.img-set {
+            width: 100%;
+            height: 240px;
+        }
+    </style>
     <?php include '_head.html'; ?>
 </head>
 
@@ -33,8 +39,15 @@
         </div>
     </section>
 
-    <!-- 搜尋結果 -->
-    <?php include '../SA_back_end/search.php'; ?>
+    <section class="products section bg-gray">
+        <div class="container">
+            <div class="row mt-20">
+                <!-- 搜尋結果 -->
+                <?php include '../SA_back_end/search.php'; ?>
+            </div>
+        </div>
+    </section>
+
 
     <?php include '_footer.html'; ?>
 

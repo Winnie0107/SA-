@@ -6,7 +6,7 @@ session_start();
 <html lang="en">
 
 <head>
-    <title>商品一覽</title>
+    <title>商店一覽</title>
     <style>
         .product-item .product-thumb img.img-set {
             width: 100%;
@@ -23,16 +23,17 @@ session_start();
 
     <!--  Menu -->
     <?php include '_buyer_menu.html'; ?>
-    
+
     <section class="products section bg-gray">
         <div class="container">
             <div class="row">
                 <div class="title text-center">
-                    <h2><strong>全部盲盒</strong></h2>
+                    <h2><strong>全部商店</strong></h2>
                 </div>
             </div>
             <div class="row">
-                <?php include '../SA_back_end/buyer_product.php'; ?>
+
+                <?php include '../SA_back_end/buyer_store.php'; ?>
             </div>
         </div>
     </section>

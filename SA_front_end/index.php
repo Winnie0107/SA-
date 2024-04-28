@@ -4,6 +4,12 @@
 
 <head>
 	<title>HOME</title>
+	<style>
+        .product-item .product-thumb img.img-set {
+            width: 100%;
+            height: 240px;
+        }
+    </style>
 	<?php include '_head.html'; ?>
 </head>
 

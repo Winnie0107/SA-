@@ -23,7 +23,7 @@ if (isset($_POST['search'])) {
         echo '<div class="col-md-4">';
         echo '<div class="product-item">';
         echo '<div class="product-thumb">';
-        echo '<img class="img-responsive" src="data:image/jpeg;base64,' . base64_encode($row['img']) . '" alt="product-img" />';
+        echo '<img class="img-set" src="data:image/jpeg;base64,' . base64_encode($row['img']) . '" alt="product-img" />';
         echo '<div class="preview-meta">';
         echo '<ul>';
         echo '<li>';

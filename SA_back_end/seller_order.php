@@ -33,7 +33,7 @@ $query = "SELECT p_order.ONumber,
                 INNER JOIN product ON `order item`.PNumber = product.PNumber
                 INNER JOIN p_order ON `order item`.ONumber = p_order.ONumber
                 INNER JOIN user ON p_order.buyer_ID = user.ID
-                WHERE product.seller_ID = '$user_id' AND p_order.state = 1
+                WHERE product.seller_ID = '$user_id'
                 GROUP BY `order item`.ONumber
                 ORDER BY `order item`.ONumber DESC
                 ";

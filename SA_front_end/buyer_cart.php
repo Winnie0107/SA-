@@ -3,7 +3,6 @@
 
 <head>
     <title>Cart</title>
-
     <?php include '_head.html'; ?>
     <style>
         button {
@@ -47,7 +46,6 @@
                 <div class="col-md-8 col-md-offset-2">
                     <div class="block">
                         <div class="product-list">
-                            
                             <form method="post" action="../SA_back_end/delete_cart_item.php">
                                 <?php
                                 session_start();
