@@ -48,8 +48,8 @@
                             </ul>
                         </div>
                     </li>
-
                     <!-- Search -->
+<<<<<<< HEAD
                     <li class="dropdown search dropdown-slide">
                         <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
                                 class="tf-ion-ios-search-strong"></i> Search</a>
@@ -64,6 +64,33 @@
                     
                     <?php
                         session_start();
+=======
+                    <a href="search_result.php">
+                        <li class="dropdown search dropdown-slide">
+                            <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
+                                    class="tf-ion-ios-search-strong"></i> Search</a>
+                            <ul class="dropdown-menu search-dropdown">
+                                <li>
+                                    <form method="POST" action="../SA_front_end/search_result.php">
+                                        <input type="text" name="search" class="form-control" placeholder="Search..."
+                                            onkeydown="if(event.keyCode==13) { this.form.submit(); return false; }">
+                                        <input type="submit" style="display: none;">
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    </a>
+                    <li class="dropdown account dropdown-slide">
+                        <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
+                                class="tf-ion-ios-person"></i> Account</a>
+                        <ul class="dropdown-menu account-dropdown">
+                            <div class="col-sm-3 col-xs-12">
+                                <ul>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="../SA_back_end/logout.php">Logout </a></li>
+                                </ul>
+                            </div>
+>>>>>>> acedebb6670d62f7d8a2c9d05cc3d36f37b6d30b
 
                         $link = mysqli_connect('localhost', 'root', '12345678');
                         mysqli_select_db($link, 'box');

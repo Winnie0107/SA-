@@ -15,7 +15,6 @@ if (isset($_POST['submit'])) {
     $price = isset($_POST['price']) ? mysqli_real_escape_string($link, $_POST['price']) : '';
     $details = isset($_POST['details']) ? mysqli_real_escape_string($link, $_POST['details']) : '';
     $quantity = isset($_POST['quantity']) ? mysqli_real_escape_string($link, $_POST['quantity']) : '';
-    $selled = $quantity > 0 ? 1 : 0;
 
     $form_data = isset($_FILES['img']['tmp_name']) ? $_FILES['img']['tmp_name'] : '';
 

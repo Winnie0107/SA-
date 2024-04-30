@@ -9,8 +9,6 @@ if (!$link) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $cart_contents = $_SESSION['cart'];
-
     $buyer_ID = $_SESSION['user_id'];
     $total_price = $_SESSION['totalPrice'];
     $phone_number = mysqli_real_escape_string($link, $_POST['phonenumber']);
@@ -25,18 +23,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $ONumber = mysqli_insert_id($link);
 
-    //order item
-    foreach ($cart_contents as $PNumber => $quantity) {
+    // 從 shopping cart item 表中獲取購物車內容
+    $select_cart_items_query = "SELECT * FROM `shopping cart item` WHERE SNumber = {$_SESSION['SNumber']}";
+    $cart_items_result = mysqli_query($link, $select_cart_items_query);
+
+    if (!$cart_items_result) {
+        die("Error fetching cart items: " . mysqli_error($link));
+    }
+
+    // 插入購物車內容到 order item 資料表中
+    while ($row = mysqli_fetch_assoc($cart_items_result)) {
+        $PNumber = $row['PNumber'];
+        $quantity = $row['quantity'];
+
         $insert_order_item_query = "INSERT INTO `order item` (ONumber, PNumber, quantity) 
                                     VALUES ('$ONumber', '$PNumber', '$quantity')";
         $result = mysqli_query($link, $insert_order_item_query);
         if (!$result) {
-            echo "Error inserting into order_item: " . mysqli_error($link);
+            echo "Error inserting into order item: " . mysqli_error($link);
         }
-    }
 
-    //減掉被下單的
-    foreach ($cart_contents as $PNumber => $quantity) {
+        // 減去被下單商品數量
         $get_product_quantity_query = "SELECT quantity FROM product WHERE PNumber = '$PNumber'";
         $result = mysqli_query($link, $get_product_quantity_query);
         $row = mysqli_fetch_assoc($result);
@@ -52,6 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
+    // 清空購物車內容
     $delete_cart_items_query = "DELETE FROM `shopping cart item` WHERE SNumber = {$_SESSION['SNumber']}";
     mysqli_query($link, $delete_cart_items_query);
 

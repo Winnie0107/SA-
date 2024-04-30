@@ -22,10 +22,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['user_account'] = $account;
             $_SESSION['user_password'] = $user['password'];
             $_SESSION['user_level'] = $user['acco_level'];
-
             $_SESSION['user_id'] = $user['ID'];
 
-            header("Location:../SA_front_end/seller_index.php");
+            $user_id = $user['ID'];
+            $store_query = "SELECT * FROM store_info WHERE seller_ID = '$user_id'";
+            $store_result = mysqli_query($link, $store_query);
+            if (mysqli_num_rows($store_result) == 0) {
+                header("Location: ../SA_front_end/seller_create_page.php");
+                exit();
+            }
+
+            header("Location: ../SA_front_end/seller_index.php");
             exit();
         } else {
             echo "登入失敗，密碼不正確。";

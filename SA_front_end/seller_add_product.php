@@ -46,7 +46,6 @@
                         <div class="col-md-8" style="width: 70%;">
                             <div class="block billing-details">
                                 <h4 class="widget-title" style="font-weight: bold;">Product Information</h4>
-
                                 <table style="width: 100%;">
                                     <tr>
                                         <td style="background-color: ;">名稱</td>
@@ -78,7 +77,6 @@
                                         <td><input type="text" class="form-control" name="quantity" name="city" value=""
                                                 placeholder="Quantity" required></td>
                                     </tr>
-                                    <input type="hidden" name="selled" value="0">
                                 </table>
                             </div>
                         </div>

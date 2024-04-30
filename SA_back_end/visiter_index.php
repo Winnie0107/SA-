@@ -7,7 +7,7 @@ if (!$link) {
     die("Error" . mysqli_connect_error());
 }
 
-$query = "SELECT * FROM product ORDER BY PNumber DESC LIMIT 6";
+$query = "SELECT * FROM product WHERE quantity > 0 ORDER BY PNumber DESC LIMIT 6";
 $result = mysqli_query($link, $query);
 
 if (!$result) {
@@ -21,7 +21,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     echo '<div class="col-md-4">';
     echo '<div class="product-item">';
     echo '<div class="product-thumb">';
-    echo '<img class="img-responsive" src="data:image/jpeg;base64,' . base64_encode($row['img']) . '" alt="product-img" />';
+    echo '<img class="img-set" src="data:image/jpeg;base64,' . base64_encode($row['img']) . '" alt="product-img" />';
     echo '<div class="preview-meta">';
     echo '<ul>';
     echo '<li>';
