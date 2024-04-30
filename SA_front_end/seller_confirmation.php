@@ -10,7 +10,7 @@
 <body id="body">
 
     <!-- Header -->
-    <?php include '_seller_header.html'; ?>
+    <?php include '_seller_header.php'; ?>
 
     <!-- Menu -->
     <?php include '_seller_menu.html'; ?>

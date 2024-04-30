@@ -8,15 +8,14 @@
                     <span
                         style="font-size: 20px; font-weight: bold; color: #333; font-family: 'Arial', sans-serif;">惜物盲盒
                         <span style="font-style: italic; font-family: 'Regular 400', sans-serif;">Mysterious
-                            Box</span></span>
+                            Box
+                        </span>
+                    </span>
                 </div>
             </div>
-            
-
             <div class="col-md-4 col-xs-12 col-sm-4">
-                <!-- Site Logo -->
                 <div class="logo text-center">
-                    <a href="buyer_index.php">
+                    <a href="seller.html">
                         <!-- replace logo here -->
                         <svg width="135px" height="29px" viewBox="0 0 155 29" version="1.1"
                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -33,22 +32,11 @@
                 </div>
             </div>
             <div class="col-md-4 col-xs-12 col-sm-4">
-                <!-- Cart -->
                 <ul class="top-menu text-right list-inline">
-                    <li class="dropdown cart-nav dropdown-slide">
-                        <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
-                                class="tf-ion-android-cart"></i>Cart</a>
-                        <div class="dropdown-menu cart-dropdown">
-                            <!-- Cart Item -->
-                            <?php include '../SA_back_end/buyer_float_cart.php'; ?>
-                            <ul class="text-center cart-buttons">
-                                <li><a href="buyer_cart.php" class="btn btn-small">Cart</a></li>
-                                <li><a href="buyer_checkout.php" class="btn btn-small btn-solid-border">Checkout</a>
-                                </li>
-                            </ul>
-                        </div>
+                    <li class="dropdown order-nav dropdown-slide">
+                        <a href="seller_order.php">&#128221;
+                            訂單狀況</a>
                     </li>
-
                     <!-- Search -->
                     <li class="dropdown search dropdown-slide">
                         <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
@@ -60,8 +48,8 @@
                             </li>
                         </ul>
                     </li>
+                    <!-- Account Login -->
 
-                    
                     <?php
                         session_start();
 
@@ -72,56 +60,52 @@
                             die("資料庫連接失敗: " . mysqli_connect_error());
                         }
 
+                        // 檢查是否是 POST 請求
                         if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $account = mysqli_real_escape_string($link, $_POST['account']);
                             $password = mysqli_real_escape_string($link, $_POST['password']);
 
-                            $sql = "SELECT * FROM user WHERE account = '$account' AND acco_level = '買家'";
+                            $sql = "SELECT * FROM user WHERE account = '$account' AND acco_level = '賣家'";
                             $result = mysqli_query($link, $sql);
 
                             if (mysqli_num_rows($result) > 0) {
                                 $user = mysqli_fetch_assoc($result);
 
                                 if ($user['password'] == $password) {
-                                    $_SESSION['user_account'] = $user['account']; // 在登入成功後設置 $_SESSION['user_account'] 變數
-                                    $_SESSION['user_password'] = $user['password'];
+                                    // 登入成功，設置用戶相關的 SESSION 變數
+                                    $_SESSION['user_account'] = $user['account']; // 將賣家的名稱存儲到 SESSION 中
                                     $_SESSION['user_level'] = $user['acco_level'];
                                     $_SESSION['user_email'] = $user['email'];
-
                                     $_SESSION['user_id'] = $user['ID'];
 
-                                    $user_id = $user['ID'];
-                                    $query = "SELECT SNumber FROM `shopping cart` WHERE buyer_ID = $user_id";
-                                    $cart_result = mysqli_query($link, $query);
-                                    if ($cart_result && mysqli_num_rows($cart_result) > 0) {
-                                        $cart_row = mysqli_fetch_assoc($cart_result);
-                                        $_SESSION['SNumber'] = $cart_row['SNumber'];
-                                    }
+                                    // 如果需要的話，還可以處理購物車相關的邏輯
 
-                                    header("Location:../SA_front_end/buyer_index.php");
+                                    // 重定向到賣家的首頁或任何其他賣家相關頁面
+                                    header("Location: ../SA_front_end/seller_index.php");
                                     exit();
                                 } else {
+                                    // 密碼錯誤，顯示錯誤消息
                                     echo "登入失敗，密碼不正確。";
                                     echo "<br><br><button onclick='window.location.href=\"../SA_front_end/login.php\"'>返回</button>";
                                 }
                             } else {
-                                echo "登入失敗，代號不存在或不是買家。";
+                                // 找不到賣家帳號，顯示錯誤消息
+                                echo "登入失敗，賣家帳號不存在。";
                                 echo "<br><br><button onclick='window.location.href=\"../SA_front_end/login.php\"'>返回</button>";
                             }
                         }
                     ?>
 
-                    
+
                     <li class="dropdown account dropdown-slide">
                         <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
-                            <i class="tf-ion-ios-person"></i>哈囉，<?php echo $_SESSION['user_account']; ?>！
+                            <i class="tf-ion-ios-person"></i> 哈囉，<?php echo $_SESSION['user_account']; ?>！
                         </a>
-                        <ul class="dropdown-menu account-dropdown" >
-                            <li><a href="../SA_front_end/bprofile_details.php">修改個人信息</a></li>
+                        <ul class="dropdown-menu account-dropdown">
+                            <li><a href="../SA_back_end/logout.php">修改個人信息</a></li>
                             <li><a href="../SA_back_end/logout.php">Logout</a></li>
                         </ul>
                     </li>
-
                 </ul>
             </div>
         </div>
