@@ -4,6 +4,21 @@
 <head>
     <title>搜尋結果</title>
     <style>
+        .search-form {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-form .form-control {
+            border-radius: 4px 0 0 4px;
+            margin-right: 10px;
+        }
+
+        .search-form .btn {
+            border-radius: 0 4px 4px 0;
+        }
+
+
         .product-item .product-thumb img.img-set {
             width: 100%;
             height: 240px;
@@ -22,6 +37,24 @@
 
     <!-- 購物車資料 -->
     <?php include '../SA_back_end/buyer_cart.php'; ?>
+
+    <section class="products section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="content">
+                        <!-- Search -->
+                        <div class="search">
+                            <form method="POST" action="../SA_front_end/search_result.php" class="search-form">
+                                <input type="text" name="search" class="form-control" placeholder="Search...">
+                                <button type="submit" class="btn"><i class="tf-ion-ios-search-strong"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <section class="page-header">
         <div class="container">

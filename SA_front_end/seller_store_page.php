@@ -8,6 +8,10 @@ session_start();
 <head>
     <title>我的商品</title>
     <style>
+        .product-item .product-thumb img.img-set {
+            width: 100%;
+            height: 240px;
+        }
         img.img-set {
             width: 385px;
             height: 270px;
@@ -70,8 +74,9 @@ session_start();
                                 <li class="media">
 
                                     <a class="pull-left" href="#!">
-                                        <img class="media-object comment-avatar" src="https://img.ixintu.com/download/jpg/202001/393f66193110479438efe843d3d5a8f7.jpg!ys" alt=""
-                                            width="50" height="50" />
+                                        <img class="media-object comment-avatar"
+                                            src="https://img.ixintu.com/download/jpg/202001/393f66193110479438efe843d3d5a8f7.jpg!ys"
+                                            alt="" width="50" height="50" />
                                     </a>
 
                                     <div class="media-body">
@@ -100,8 +105,9 @@ session_start();
                                 <li class="media">
 
                                     <a class="pull-left" href="#!">
-                                        <img class="media-object comment-avatar" src="https://img.ixintu.com/download/jpg/202001/393f66193110479438efe843d3d5a8f7.jpg!ys" alt=""
-                                            width="50" height="50" />
+                                        <img class="media-object comment-avatar"
+                                            src="https://img.ixintu.com/download/jpg/202001/393f66193110479438efe843d3d5a8f7.jpg!ys"
+                                            alt="" width="50" height="50" />
                                     </a>
 
                                     <div class="media-body">
@@ -131,8 +137,9 @@ session_start();
                                 <li class="media">
 
                                     <a class="pull-left" href="#!">
-                                        <img class="media-object comment-avatar" src="https://img.ixintu.com/download/jpg/202001/393f66193110479438efe843d3d5a8f7.jpg!ys" alt=""
-                                            width="50" height="50">
+                                        <img class="media-object comment-avatar"
+                                            src="https://img.ixintu.com/download/jpg/202001/393f66193110479438efe843d3d5a8f7.jpg!ys"
+                                            alt="" width="50" height="50">
                                     </a>
 
                                     <div class="media-body">

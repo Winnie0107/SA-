@@ -9,6 +9,10 @@ session_start();
 <head>
 	<title>HOME</title>
 	<style>
+        .product-item .product-thumb img.img-set {
+            width: 100%;
+            height: 240px;
+        }
         img.img-set {
             width: 385px;
             height: 270px;
