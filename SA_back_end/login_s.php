@@ -25,6 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['user_id'] = $user['ID'];
 
             $user_id = $user['ID'];
+            
             $store_query = "SELECT * FROM store_info WHERE seller_ID = '$user_id'";
             $store_result = mysqli_query($link, $store_query);
             if (mysqli_num_rows($store_result) == 0) {

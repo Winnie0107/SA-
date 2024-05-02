@@ -11,7 +11,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = isset($_POST['email']) ? mysqli_real_escape_string($link, $_POST['email']) : '';
     $acco_level = isset($_POST['acco_level']) ? mysqli_real_escape_string($link, $_POST['acco_level']) : '';
 
-    $sql = "INSERT INTO user (account, password, email, acco_level) VALUES ('$account', '$password', '$email', '$acco_level')";
+    $default_img_path = 'C:\AppServ\www\SA-\images\penguin.jpg';
+
+    // 讀取預設圖片文件並轉換為二進制格式
+    $default_img_content = addslashes(file_get_contents($default_img_path));
+
+    // 插入用戶信息和預設圖片到資料庫
+    $sql = "INSERT INTO user (account, password, email, acco_level, img) VALUES ('$account', '$password', '$email', '$acco_level', '$default_img_content')";
 
     $user_id = $user['ID'];
 

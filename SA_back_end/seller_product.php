@@ -30,7 +30,9 @@ while ($row = mysqli_fetch_assoc($result)) {
     echo '</span>';
     echo '</li>';
     echo '<li>';
-    echo '<a href="#"><i class="glyphicon glyphicon-minus"></i></a>';
+    echo '<a href="#" onclick="deleteProduct(' . $row['PNumber'] . ')">';
+    echo '<i class="glyphicon glyphicon-minus"></i>';
+    echo '</a>';
     echo '</li>';
     echo '</ul>';
     echo '</div>';
@@ -72,4 +74,28 @@ while ($row = mysqli_fetch_assoc($result)) {
     echo '</div>';
     echo '</div>';
 }
+
 ?>
+
+<script>
+    function deleteProduct(PNumber) {
+        if (confirm("確定要刪除此商品嗎？")) {
+            // 發送 Ajax 請求以刪除商品
+            $.ajax({
+                type: "POST",
+                url: "../SA_back_end/delete_product.php",
+                data: { PNumber: PNumber },
+                success: function(response) {
+                    // 處理成功刪除的情況
+                    alert("商品已成功刪除！");
+                    // 重新載入當前網頁以更新商品列表
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    // 處理刪除失敗的情況
+                    alert("刪除商品時發生錯誤：" + error);
+                }
+            });
+        }
+    }
+</script>

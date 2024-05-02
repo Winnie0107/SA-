@@ -6,9 +6,17 @@
     <title>我的訂單</title>
     <?php include '_head.html'; ?>
     <style>
+        img.user-img-set {
+            width: 150px;
+            padding: 0 !important;
+            border-radius: 90px;
+            margin: 20px 80px 20px 20px !important;
+        }
+
         td {
             vertical-align: middle !important;
         }
+
         .page-wrapper {
             padding: 20px 0;
         }
@@ -17,8 +25,8 @@
 
 <body id="body">
 
-     <!-- Header -->
-     <?php include '_buyer_header.php'; ?>
+    <!-- Header -->
+    <?php include '_buyer_header.php'; ?>
 
     <!--  Menu -->
     <?php include '_buyer_menu.html'; ?>
@@ -44,41 +52,40 @@
                 <div class="col-md-12">
                     <div class="dashboard-wrapper dashboard-user-profile">
                         <div class="media">
-                            <?php 
+                            <?php
                             session_start();
                             $user_id = $_SESSION['user_id'];
-                            
+
                             $link = mysqli_connect('localhost', 'root', '12345678', 'box');
-                            
+
                             if (!$link) {
                                 die("資料庫連接失敗: " . mysqli_connect_error());
                             }
-                            
+
                             $query = "SELECT * FROM user WHERE ID = $user_id"; // 從 user 表中選擇所有資訊，限制條件是使用者的 ID
                             $result = mysqli_query($link, $query);
-                            
+
                             if (!$result) {
                                 die("Error: " . mysqli_error($link));
                             }
-                            
+
                             // 將資料庫查詢的結果保存到 $row 變數中
                             $row = mysqli_fetch_assoc($result);
-                            
+
                             // Output the HTML content
                             echo '<div class="media-body" style="display: flex; align-items: center; margin-left: 50px">';
-                            echo '<img class="media-object user-img" style="padding: 0px 25px; margin: 20px; transform: scale(1.2);" src="data:image/jpeg;base64,' . base64_encode($row['img']) . '" alt="User Image">'; // 將 img 移至 div.media-body 內
+                            echo '<img class="user-img-set" style="padding: 0px 25px; margin: 20px; transform: scale(1.2);" src="data:image/jpeg;base64,' . base64_encode($row['img']) . '" alt="User Image">'; // 將 img 移至 div.media-body 內
                             echo '<ul class="user-profile-list">'; // 將 ul 移至 div.media-body 內
                             echo '<li><span>帳號名稱：</span>' . $row['account'] . '</li>';
                             echo '<li><span>帳號密碼：</span>' . $row['password'] . '</li>';
                             echo '<li><span>Email：</span>' . $row['email'] . '</li>';
                             echo '</ul>';
                             echo '</div>';
-                            
-                            
+
+
                             mysqli_close($link);
                             ?>
-                            
-                            
+
                         </div>
                     </div>
                 </div>
@@ -92,4 +99,5 @@
     <?php include '_script.html'; ?>
 
 </body>
+
 </html>
