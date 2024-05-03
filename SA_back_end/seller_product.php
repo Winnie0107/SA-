@@ -25,9 +25,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     echo '<div class="preview-meta">';
     echo '<ul>';
     echo '<li>';
-    echo '<span data-toggle="modal" data-target="#product-modal' . $row['PNumber'] . '">';
-    echo '<i class="glyphicon glyphicon-pencil"></i>';
-    echo '</span>';
+    echo '<a href="seller_edit_product.php?PNumber=' . $row['PNumber'] . '"><i class="glyphicon glyphicon-pencil"></i></a>';
     echo '</li>';
     echo '<li>';
     echo '<a href="#" onclick="deleteProduct(' . $row['PNumber'] . ')">';
@@ -44,35 +42,6 @@ while ($row = mysqli_fetch_assoc($result)) {
     echo '</div>';
     echo '</div>';
     
-    //modal
-    echo '<div class="modal product-modal fade" id="product-modal' . $row['PNumber'] . '">';
-    echo '<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
-    echo '<i class="tf-ion-close"></i>';
-    echo '</button>';
-    echo '<div class="modal-dialog " role="document">';
-    echo '<div class="modal-content">';
-    echo '<div class="modal-body">';
-    echo '<div class="row">';
-    echo '<div class="col-md-8 col-sm-6 col-xs-12">';
-    echo '<div class="modal-image">';
-    echo '<img class="img-responsive" src="data:image/jpeg;base64,' . base64_encode($row['img']) . '" alt="product-img" />';
-    echo '</div>';
-    echo '</div>';
-    echo '<div class="col-md-4 col-sm-6 col-xs-12">';
-    echo '<div class="product-short-details">';
-    echo '<h2 class="product-title">' . $row['PName'] . '</h2>';
-    echo '<p class="product-price">' . $row['price'] . '</p>';
-    echo '<p class="product-short-description">' . $row['details'] . '</p>';
-    echo '<a href="product-single.html" class="btn btn-transparent">剩餘數量：' . $row['quantity'] . '</a>';
-    echo '<br>';
-    echo '<a href="cart.html" class="btn btn-main">修改內容</a>';
-    echo '</div>';
-    echo '</div>';
-    echo '</div>';
-    echo '</div>';
-    echo '</div>';
-    echo '</div>';
-    echo '</div>';
 }
 
 ?>
@@ -80,19 +49,15 @@ while ($row = mysqli_fetch_assoc($result)) {
 <script>
     function deleteProduct(PNumber) {
         if (confirm("確定要刪除此商品嗎？")) {
-            // 發送 Ajax 請求以刪除商品
             $.ajax({
                 type: "POST",
                 url: "../SA_back_end/delete_product.php",
                 data: { PNumber: PNumber },
                 success: function(response) {
-                    // 處理成功刪除的情況
                     alert("商品已成功刪除！");
-                    // 重新載入當前網頁以更新商品列表
                     location.reload();
                 },
                 error: function(xhr, status, error) {
-                    // 處理刪除失敗的情況
                     alert("刪除商品時發生錯誤：" + error);
                 }
             });
