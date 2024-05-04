@@ -9,10 +9,8 @@ if (!$link) {
 }
 
 if(isset($_POST['cancel_order'])) {
-    // 获取订单号
     $order_number = $_POST['order_number'];
     
-    // 更新订单状态为 0
     $update_query = "UPDATE p_order SET state = 0 WHERE ONumber = $order_number";
     $update_result = mysqli_query($link, $update_query);
 
@@ -26,6 +24,7 @@ $query = "SELECT p_order.ONumber,
                 p_order.total_price, 
                 p_order.phone_number, 
                 p_order.lineID, 
+                p_order.state,
                 GROUP_CONCAT(`order item`.quantity SEPARATOR '<br>') AS quantity,
                 GROUP_CONCAT(product.PName SEPARATOR '<br>') AS PName, 
                 user.account
@@ -53,7 +52,7 @@ echo '<th>總價</th>';
 echo '<th>用戶名稱</th>';
 echo '<th>電話號碼</th>';
 echo '<th>LINE ID</th>';
-echo '<th>取消訂單</th>';
+echo '<th>訂單狀態</th>';
 echo '</tr>';
 echo '</thead>';
 echo '<tbody>';
@@ -67,13 +66,18 @@ while ($row = mysqli_fetch_assoc($result)) {
     echo '<td>' . $row['account'] . '</td>';
     echo '<td>' . $row['phone_number'] . '</td>';
     echo '<td>' . $row['lineID'] . '</td>';
-    // 添加取消订单按钮，并包含订单号
-    echo '<td>';
-    echo '<form method="post">';
-    echo '<input type="hidden" name="order_number" value="' . $row['ONumber'] . '">';
-    echo '<button type="submit" name="cancel_order" onclick="return confirm(\'是否確定取消此訂單？\')">取消</button>';
-    echo '</form>';
-    echo '</td>';
+    
+    if ($row['state'] == 1) {
+        echo '<td>';
+        echo '<form method="post">';
+        echo '<input type="hidden" name="order_number" value="' . $row['ONumber'] . '">';
+        echo '<button type="submit" name="cancel_order" class="btn btn-danger" onclick="return confirm(\'是否確定取消此訂單？ (提醒：隨意取消訂單可能導致商店評分下降)\')">取消</button>';
+        echo '</form>';
+        echo '</td>';
+    } else {
+        echo '<td>已取消</td>';
+    }
+    
     echo '</tr>';
 }
 
