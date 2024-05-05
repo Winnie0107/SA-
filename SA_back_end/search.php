@@ -8,7 +8,7 @@ if (!$link) {
 }
 
 if (isset($_POST['search'])) {
-    $keyword = isset($_POST['search']) ? mysqli_real_escape_string($link, $_POST['search']) : '';
+    $keyword = isset($_POST['keyword']) ? mysqli_real_escape_string($link, $_POST['keyword']) : '';
 
     $query = "SELECT * FROM product WHERE quantity > 0 AND (PName LIKE '%$keyword%' OR details LIKE '%$keyword%') ORDER BY PNumber DESC LIMIT 6";
     $result = mysqli_query($link, $query);
@@ -16,6 +16,7 @@ if (isset($_POST['search'])) {
     if (!$result) {
         die("Error: " . mysqli_error($link));
     }
+    echo '<div class="row mt-20">';
 
     while ($row = mysqli_fetch_assoc($result)) {
         $product_number = $row['PNumber']; //盲盒編號

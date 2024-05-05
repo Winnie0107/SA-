@@ -8,6 +8,20 @@ session_start();
 <head>
     <title>商品一覽</title>
     <style>
+        .search-form {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-form .form-control {
+            border-radius: 4px 0 0 4px;
+            margin-right: 10px;
+        }
+
+        .search-form .btn {
+            border-radius: 0 4px 4px 0;
+        }
+        
         .product-item .product-thumb img.img-set {
             width: 100%;
             height: 240px;

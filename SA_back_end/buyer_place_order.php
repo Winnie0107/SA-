@@ -87,6 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $seller_name = $seller_name_row['STName'];
         mysqli_free_result($seller_name_result);
 
+        //email顯示資料
         $_SESSION['order_details'][$seller_ID][] = [
             'user_name' => $user_account, // 用戶名稱
             'product_name' => $product_name, // 產品名稱
