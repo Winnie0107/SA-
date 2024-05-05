@@ -42,7 +42,7 @@
                             <i class="tf-ion-ios-person"></i> 哈囉，<?php echo $_SESSION['user_account']; ?>！
                         </a>
                         <ul class="dropdown-menu account-dropdown">
-                            <li><a href="../SA_back_end/logout.php">修改個人信息</a></li>
+                            <li><a href="../SA_front_end/sprofile_details.php">修改個人信息</a></li>
                             <li><a href="../SA_back_end/logout.php">Logout</a></li>
                         </ul>
                     </li>

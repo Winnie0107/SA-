@@ -26,10 +26,10 @@
 <body id="body">
 
     <!-- Header -->
-    <?php include '_buyer_header.php'; ?>
+    <?php include '_seller_header.php'; ?>
 
     <!--  Menu -->
-    <?php include '_buyer_menu.html'; ?>
+    <?php include '_seller_menu.html'; ?>
 
     <section class="page-header">
         <div class="container">
@@ -38,7 +38,7 @@
                     <div class="content">
                         <h1 class="page-name">我的個人訊息</h1>
                         <ol class="breadcrumb">
-                            <li><a href="buyer.html">Home</a></li>
+                            <li><a href="seller.html">Home</a></li>
                             <li class="active">修改個人訊息</li>
                         </ol>
                     </div>
@@ -52,7 +52,6 @@
                 <div class="col-md-12">
                     <div class="dashboard-wrapper dashboard-user-profile">
                         <div class="media">
-                            
                             <?php
                             session_start();
                             $user_id = $_SESSION['user_id'];
@@ -81,13 +80,18 @@
                             echo '<li><span>帳號密碼：</span>' . $row['password'] . '</li>';
                             echo '<li><span>Email：</span>' . $row['email'] . '</li>';
                             echo '</ul>';
-                            echo '</div>'; // 关闭 .media-body
-                            
+                            echo '</div>';
+
 
                             mysqli_close($link);
                             ?>
+                            <div class="block">
+                                <div class="card-details" style="text-align: right;">
+                                    <a href="supdate_profile.php" class="btn btn-main mt-20">修改個人資料</a>
+                                </div>
+                            </div>
+
                         </div>
-                        
                     </div>
                 </div>
             </div>

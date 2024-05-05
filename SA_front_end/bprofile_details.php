@@ -85,6 +85,11 @@
 
                             mysqli_close($link);
                             ?>
+                            <div class="block">
+                                <div class="card-details" style="text-align: right;">
+                                    <a href="bupdate_profile.php" class="btn btn-main mt-20">修改個人資料</a>
+                                </div>
+                            </div>
 
                         </div>
                     </div>
