@@ -13,24 +13,12 @@ if (isset($_POST['submit'])) {
     $new_account = isset($_POST['account']) ? mysqli_real_escape_string($link, $_POST['account']) : '';
     $new_password = isset($_POST['password']) ? mysqli_real_escape_string($link, $_POST['password']) : '';
 
-    // 处理文件上传
-    if ($_FILES['file']['name']) {
-        // 获取上传的文件名和临时文件路径
-        $file_tmp = isset($_FILES['file']['tmp_name']) ? $_FILES['file']['tmp_name'] : '';
-        $file_name = isset($_FILES['file']['name']) ? $_FILES['file']['name'] : '';
+    $form_data = isset($_FILES['img']['tmp_name']) ? $_FILES['img']['tmp_name'] : '';
 
-        // 将文件移动到指定目录
-        move_uploaded_file($file_tmp, "uploads/" . $file_name);
-
-        // 更新数据库中的图片信息
-        $img_path = "uploads/" . $file_name;
-    } else {
-        // 如果没有文件上传，将图片信息设置为原始图片路径
-        $img_path = $row['img']; // 假设 $row 中存储了用户的原始图片路径
-    }
+    $data = addslashes(file_get_contents($form_data));
 
     // 更新数据库中的数据，包括 email 和图片路径
-    $query = "UPDATE user SET account='$new_account', password='$new_password', img='$img_path' WHERE ID=$user_id";
+    $query = "UPDATE user SET account='$new_account', password='$new_password', img='$data' WHERE ID=$user_id";
     $result = mysqli_query($link, $query);
 
     if (!$result) {
@@ -55,7 +43,6 @@ if (!$result) {
 
 // 将查询结果保存到 $row 变量中
 $row = mysqli_fetch_assoc($result);
-
 
 // 关闭数据库连接
 mysqli_close($link);
@@ -89,29 +76,12 @@ mysqli_close($link);
             padding: 20px 0;
         }
 
-        .media-body {
-            display: flex;
-            align-items: center;
-            margin-left: 50px;
-        }
-
-        .form-container {
-            width: 6%; /* 调整表单宽度 */
-            margin: 50px auto 30px 60px;
-
-        }
-        
-        form {
-            display: flex;
-            flex-direction: column;
-        }
 
         form input,
         form button {
-            margin-bottom: 10px; /* 输入框和按钮之间的垂直间距 */
+            margin-bottom: 10px;
+            /* 输入框和按钮之间的垂直间距 */
         }
-
-       
     </style>
 </head>
 
@@ -146,18 +116,15 @@ mysqli_close($link);
                     <div class="dashboard-wrapper dashboard-user-profile">
                         <div class="media">
                             <div class="media-body">
-                                <form method="post" action="" enctype="multipart/form-data" >
-
-                                    <div class="product-checkout-details" >
-                                        <div class="block">
-                                            <h4 class="widget-title" style="font-weight: bold;">上傳新的大頭貼</h4>
-                                            <div class="media product-card">
-                                                <input type="file" id="upload" name="img" accept="image/*"
-                                                        style="display: inline-block ;">
-                                            </div>
+                                <form method="post" action="" enctype="multipart/form-data" style="display: flex; justify-content: center; align-items: center; width: 100%;">
+                                    <div class="block" style="width: 35%; display: inline-block; vertical-align: top; margin-left: 5%;">
+                                        <h4 class="widget-title" style="font-weight: bold;">上傳新的大頭貼</h4>
+                                        <div class="media product-card">
+                                            <input type="file" id="upload" name="img" accept="image/*" style="display: inline-block;">
                                         </div>
                                         <div id="image-preview"></div>
                                     </div>
+
                                     <script>
                                         document.getElementById('upload').addEventListener('change', function(event) {
                                             var file = event.target.files[0];
@@ -175,15 +142,15 @@ mysqli_close($link);
                                         });
                                     </script>
 
-                                    <div class="form-container">
-                                            <input type="text" name="account" placeholder="新的帳號名稱" required><br>
-                                            <input type="password" name="password" placeholder="新的帳號密碼" required><br>
-                                            <div><?php echo $row['email']; ?></div>
-                                            <button type="submit" name="submit" class="btn btn-main mt-20" style="width: 20%; margin-left: auto;">確定更改</button>
+                                    <div class="col-md-8" style="width: 65%; display: inline-block; vertical-align: top;">
+                                        <input type="text" name="account" placeholder="新的帳號名稱" required style="width: 75%;"><br>
+                                        <input type="password" name="password" placeholder="新的帳號密碼" required style="width: 75%;"><br>
+                                        <div><?php echo $row['email']; ?></div>
+                                        <button type="submit" name="submit" class="btn btn-main mt-20" style="width: 20%; margin-left: auto;">確定更改</button>
                                     </div>
                                 </form>
 
-                                
+
                             </div>
                         </div>
                     </div>
@@ -197,4 +164,3 @@ mysqli_close($link);
 </body>
 
 </html>
-

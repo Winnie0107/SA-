@@ -13,24 +13,12 @@ if (isset($_POST['submit'])) {
     $new_account = isset($_POST['account']) ? mysqli_real_escape_string($link, $_POST['account']) : '';
     $new_password = isset($_POST['password']) ? mysqli_real_escape_string($link, $_POST['password']) : '';
 
-    // 处理文件上传
-    if ($_FILES['file']['name']) {
-        // 获取上传的文件名和临时文件路径
-        $file_tmp = isset($_FILES['file']['tmp_name']) ? $_FILES['file']['tmp_name'] : '';
-        $file_name = isset($_FILES['file']['name']) ? $_FILES['file']['name'] : '';
+    $form_data = isset($_FILES['img']['tmp_name']) ? $_FILES['img']['tmp_name'] : '';
 
-        // 将文件移动到指定目录
-        move_uploaded_file($file_tmp, "uploads/" . $file_name);
-
-        // 更新数据库中的图片信息
-        $img_path = "uploads/" . $file_name;
-    } else {
-        // 如果没有文件上传，将图片信息设置为原始图片路径
-        $img_path = $row['img']; // 假设 $row 中存储了用户的原始图片路径
-    }
+    $data = addslashes(file_get_contents($form_data));
 
     // 更新数据库中的数据，包括 email 和图片路径
-    $query = "UPDATE user SET account='$new_account', password='$new_password', img='$img_path' WHERE ID=$user_id";
+    $query = "UPDATE user SET account='$new_account', password='$new_password', img='$data' WHERE ID=$user_id";
     $result = mysqli_query($link, $query);
 
     if (!$result) {
@@ -41,7 +29,7 @@ if (isset($_POST['submit'])) {
     mysqli_close($link);
 
     // 重定向到 bprofile_details.php 页面
-    header("Location: bprofile_details.php");
+    header("Location: sprofile_details.php");
     exit();
 }
 
