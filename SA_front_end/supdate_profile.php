@@ -88,13 +88,12 @@ mysqli_close($link);
             padding: 20px 0;
         }
 
-        
+
         form input,
         form button {
-            margin-bottom: 10px; /* 输入框和按钮之间的垂直间距 */
+            margin-bottom: 10px;
+            /* 输入框和按钮之间的垂直间距 */
         }
-
-       
     </style>
 </head>
 
@@ -129,16 +128,15 @@ mysqli_close($link);
                     <div class="dashboard-wrapper dashboard-user-profile">
                         <div class="media">
                             <div class="media-body">
-                                <form method="post" action="" enctype="multipart/form-data" style="display:flex; width:100%;">
-                                        <div class="block" style="width:20%; display: inline-block; vertical-align: top;">
-                                            <h4 class="widget-title" style="font-weight: bold;">上傳新的大頭貼</h4>
-                                            <div class="media product-card">
-                                                <input type="file" id="upload" name="img" accept="image/*"
-                                                            style="display: inline-block ;">
-                                            </div>                                        
-                                            <div id="image-preview"></div>
-
+                                <form method="post" action="" enctype="multipart/form-data" style="display: flex; justify-content: center; align-items: center; width: 100%;">
+                                    <div class="block" style="width: 35%; display: inline-block; vertical-align: top; margin-left: 5%;">
+                                        <h4 class="widget-title" style="font-weight: bold;">上傳新的大頭貼</h4>
+                                        <div class="media product-card">
+                                            <input type="file" id="upload" name="img" accept="image/*" style="display: inline-block;">
                                         </div>
+                                        <div id="image-preview"></div>
+                                    </div>
+
                                     <script>
                                         document.getElementById('upload').addEventListener('change', function(event) {
                                             var file = event.target.files[0];
@@ -156,15 +154,15 @@ mysqli_close($link);
                                         });
                                     </script>
 
-                                    <div class="col-md-8" style=" width:100%; margin-left:60px; display: inline-block; vertical-align: top;">
-                                        <input type="text" name="account" placeholder="新的帳號名稱" required><br>
-                                        <input type="password" name="password" placeholder="新的帳號密碼" required><br>
+                                    <div class="col-md-8" style="width: 65%; display: inline-block; vertical-align: top;">
+                                        <input type="text" name="account" placeholder="新的帳號名稱" required style="width: 75%;"><br>
+                                        <input type="password" name="password" placeholder="新的帳號密碼" required style="width: 75%;"><br>
                                         <div><?php echo $row['email']; ?></div>
                                         <button type="submit" name="submit" class="btn btn-main mt-20" style="width: 20%; margin-left: auto;">確定更改</button>
                                     </div>
                                 </form>
 
-                                
+
                             </div>
                         </div>
                     </div>
@@ -178,4 +176,3 @@ mysqli_close($link);
 </body>
 
 </html>
-

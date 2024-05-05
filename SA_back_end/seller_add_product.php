@@ -48,7 +48,7 @@
                                 <h4 class="widget-title" style="font-weight: bold;">Product Information</h4>
                                 <table style="width: 100%;">
                                     <tr>
-                                        <td style="background-color: ;">名稱</td>
+                                        <td>名稱</td>
                                         <td colspan="3"><input type="text" class="form-control" name="PName"
                                                 placeholder="Product Name Please!" required></td>
                                     </tr>
