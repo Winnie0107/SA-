@@ -69,19 +69,17 @@
                                 die("Error: " . mysqli_error($link));
                             }
 
-                            // 將資料庫查詢的結果保存到 $row 變數中
-                            $row = mysqli_fetch_assoc($result);
-
-                            // Output the HTML content
-                            echo '<div class="media-body" style="display: flex; align-items: center; margin-left: 50px">';
-                            echo '<img class="user-img-set" style="padding: 0px 25px; margin: 20px; transform: scale(1.2);" src="data:image/jpeg;base64,' . base64_encode($row['img']) . '" alt="User Image">'; // 將 img 移至 div.media-body 內
-                            echo '<ul class="user-profile-list">'; // 將 ul 移至 div.media-body 內
-                            echo '<li><span>帳號名稱：</span>' . $row['account'] . '</li>';
-                            echo '<li><span>帳號密碼：</span>' . $row['password'] . '</li>';
-                            echo '<li><span>Email：</span>' . $row['email'] . '</li>';
-                            echo '</ul>';
-                            echo '</div>';
-
+                            // 直接在 echo 语句中使用检索到的数据
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                echo '<div class="media-body" style="display: flex; align-items: center; margin-left: 50px">';
+                                echo '<img class="user-img-set" style="padding: 0px 25px; margin: 20px; transform: scale(1.2);" src="data:image/jpeg;base64,' . base64_encode($row['img']) . '" alt="User Image">'; // 將 img 移至 div.media-body 內
+                                echo '<ul class="user-profile-list">'; // 將 ul 移至 div.media-body 內
+                                echo '<li><span>帳號名稱：</span>' . $row['account'] . '</li>';
+                                echo '<li><span>帳號密碼：</span>' . $row['password'] . '</li>';
+                                echo '<li><span>Email：</span>' . $row['email'] . '</li>';
+                                echo '</ul>';
+                                echo '</div>';
+                            }
 
                             mysqli_close($link);
                             ?>
