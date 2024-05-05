@@ -151,11 +151,6 @@
         <div class="block">
             <h4 class="widget-title" style="font-weight: bold;">Change Photo</h4>
             <div class="media product-card">
-                <?php if (isset($product['img'])): ?>
-                    <img class="img-responsive"
-                        src="data:image/jpeg;base64, <?php echo base64_encode($product['img']); ?>"
-                        alt="Product Image">
-                <?php endif; ?>
                 <input type="file" id="upload" name="img" accept="image/*" style="display: inline-block ;">
                 <div id="image-preview"></div>
             </div>
