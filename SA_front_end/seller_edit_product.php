@@ -62,6 +62,37 @@
                         die("Error: Product not found");
                     }
                 }
+
+                if (isset($_POST['submit'])) {
+                    $PName = $_POST['PName'];
+                    $category = $_POST['category'];
+                    $details = $_POST['details'];
+                    $price = $_POST['price'];
+                    $quantity = $_POST['quantity'];
+                    
+                    // 處理上傳的圖片
+                    $img = addslashes(file_get_contents($_FILES['img']['tmp_name']));
+
+                    $update_query = "UPDATE product 
+                                    SET PName='$PName', 
+                                        category='$category', 
+                                        details='$details', 
+                                        price='$price', 
+                                        quantity='$quantity', 
+                                        img='$img'
+                                    WHERE PNumber='$product_id'";
+
+                    $update_result = mysqli_query($link, $update_query);
+
+                    if ($update_result) {
+                        echo "<script>window.location.href = 'http://localhost/SA-/SA_front_end/seller_edit_finish.php';</script>";
+                        echo "<div class='alert alert-success' role='alert'>商品資訊已成功修改！</div>";
+                        exit(); // 確保在重定向後結束當前腳本的執行
+                    } else {
+                        echo "<div class='alert alert-danger' role='alert'>修改商品資訊時發生錯誤。</div>";
+                    }
+                    
+                }
                 ?>
                 <form method="post" action="" enctype="multipart/form-data">
                     <div class="row">
@@ -70,7 +101,7 @@
                                 <h4 class="widget-title" style="font-weight: bold;">Edit Product Information</h4>
                                 <table style="width: 100%;">
                                     <tr>
-                                        <td style="background-color: ;">名稱</td>
+                                        <td style="background-color:white;">名稱</td>
                                         <td colspan="3"><input type="text" class="form-control" name="PName"
                                                 value="<?php echo isset($product['PName']) ? $product['PName'] : ''; ?>"
                                                 placeholder="Product Name Please!" required></td>
