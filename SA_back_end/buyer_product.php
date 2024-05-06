@@ -15,7 +15,7 @@ $all_categories = ['全部', '公仔', '首飾', '實用小物', '服飾'];
 echo '<ul class="nav nav-tabs nav-justified" role="tablist">';
 foreach ($all_categories as $index => $category) {
     $class = ($index == 0) ? 'active' : '';
-    echo '<li role="presentation" class="' . $class . '"><a href="#' . $category . '" aria-controls="' . $category . '" role="tab" data-toggle="tab">' . $category . '</a></li>';
+    echo '<li role="presentation" class="' . $class . '"><a href="#' . str_replace(' ', '', $category) . '" aria-controls="' . str_replace(' ', '', $category) . '" role="tab" data-toggle="tab">' . $category . '</a></li>';
 }
 echo '</ul>';
 
@@ -23,7 +23,7 @@ echo '</ul>';
 echo '<div class="tab-content">';
 foreach ($all_categories as $index => $category) {
     $class = ($index == 0) ? 'active' : '';
-    echo '<div role="tabpanel" class="tab-pane ' . $class . '" id="' . $category . '">';
+    echo '<div role="tabpanel" class="tab-pane ' . $class . '" id="' . str_replace(' ', '', $category) . '">';
     echo '<div class="row mt-40">'; // 將這行移到此處
     if ($category == '全部') {
         $query = "SELECT * FROM product WHERE quantity > 0";
@@ -49,7 +49,7 @@ foreach ($all_categories as $index => $category) {
             echo '<div class="preview-meta">';
             echo '<ul>';
             echo '<li>';
-            echo '<span data-toggle="modal" data-target="#product-modal' . $row['PNumber'] . '">';
+            echo '<span data-toggle="modal" data-target="#product-modal-' . $row['PNumber'] . '">';
             echo '<i class="tf-ion-ios-search-strong"></i>';
             echo '</span>';
             echo '</li>';
@@ -67,7 +67,7 @@ foreach ($all_categories as $index => $category) {
             echo '</div>';
             
             //modal
-            echo '<div class="modal product-modal fade" id="product-modal' . $row['PNumber'] . '">';
+            echo '<div class="modal product-modal fade" id="product-modal-' . $row['PNumber'] . '">';
             echo '<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
             echo '<i class="tf-ion-close"></i>';
             echo '</button>';
@@ -85,7 +85,7 @@ foreach ($all_categories as $index => $category) {
             echo '<h2 class="product-title">' . $row['PName'] . '</h2>';
             echo '<p class="product-price">' . $row['price'] . '</p>';
             echo '<p class="product-short-description">' . $row['details'] . '</p>';
-            echo '<a href="product-single.html" class="btn btn-transparent">剩餘數量：' . $row['quantity'] . '</a>';
+            echo '<a href="product-single.html?product_number=' . $product_number . '" class="btn btn-transparent">剩餘數量：' . $row['quantity'] . '</a>';
             echo '<br>';
             echo '<a href="../SA_back_end/buyer_add_to_cart.php?product_number=' . $product_number . '" class="btn btn-main">Add to cart</a>';
             echo '</div>';
@@ -102,7 +102,7 @@ foreach ($all_categories as $index => $category) {
         echo '<p class="text-center">暫無商品</p>';
         echo '</div>';
     }
-    echo '</div>';
+    echo '</div>'; // 移動到這裡
     echo '</div>';
 }
 echo '</div>';
