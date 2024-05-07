@@ -16,6 +16,30 @@ if (isset($_POST['submit'])) {
     $details = isset($_POST['details']) ? mysqli_real_escape_string($link, $_POST['details']) : '';
     $quantity = isset($_POST['quantity']) ? mysqli_real_escape_string($link, $_POST['quantity']) : '';
 
+    // 如果沒有輸入新的名稱，則保留原始資料庫中的值
+    if (empty($_POST['PName'])) {
+        $details = $product['PName'];
+    } else {
+        $details = $_POST['PName'];
+
+        // 检查名稱是否包含 "盲盒"，如果不包含，则添加上去
+        if (!strstr($PName, "盲盒")) {
+            $PName = $PName . " 盲盒";
+        }
+    }
+
+    // 如果沒有輸入新的盲盒介紹，則保留原始資料庫中的值
+    if (empty($_POST['details'])) {
+        $details = $product['details'];
+    } else {
+        $details = $_POST['details'];
+
+        // 检查盲盒介绍是否包含 "可能內容物："，如果不包含，则添加上去
+        if (!strstr($details, "可能內容物：")) {
+            $details = "可能內容物：" . $details;
+        }
+    }
+
     // Set default image path based on price range
     // 使用正則表達式檢查價格格式
     if (preg_match('/^\$\d+$/', $price)) {
