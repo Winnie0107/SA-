@@ -70,6 +70,14 @@
                     $price = $_POST['price'];
                     $quantity = $_POST['quantity'];
 
+                    // 在商品名字后面添加 "盲盒"
+                    $PName .= " 盲盒";
+
+                    // 检查盲盒介绍是否包含 "可能內容物："，如果不包含，则添加上去
+                    if (!strstr($details, "可能內容物：")) {
+                        $details = "可能內容物：" . $details;
+                    }
+
                     // 處理上傳的圖片
                     $img = addslashes(file_get_contents($_FILES['img']['tmp_name']));
 
@@ -98,7 +106,11 @@
                     $update_query .= " WHERE PNumber='$product_id'";
 
                     // 執行更新資料庫的動作
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> 218651bc6100d76ec96b0bc1a6f695179114aba2
 
                     $update_result = mysqli_query($link, $update_query);
 
@@ -135,10 +147,17 @@
                                         </td>
                                     </tr>
                                     <tr>
+                                    <tr>
+                                    <tr>
                                         <td>盲盒介紹</td>
+<<<<<<< HEAD
                                         <td colspan="3"><textarea class="form-control" name="details" rows="5"
                                                 placeholder="You can list the potential items that might appear in your Mystery Box!"><?php echo isset($product['details']) ? $product['details'] : ''; ?></textarea></textarea>
                                         </td>
+=======
+                                        <td colspan="3"><textarea class="form-control" name="details" rows="5" placeholder="<?php echo isset($product['details']) ? $product['details'] : '可能內容物：'; ?>"></textarea></td>
+                                    </tr>
+>>>>>>> 218651bc6100d76ec96b0bc1a6f695179114aba2
                                     </tr>
                                     <tr>
                                         <td>價錢</td>
@@ -158,13 +177,22 @@
                                 <div class="block">
                                     <h4 class="widget-title" style="font-weight: bold;">Change Photo</h4>
                                     <div class="media product-card">
+<<<<<<< HEAD
                                         <input type="file" id="upload" name="img" accept="image/*"
                                             style="display: inline-block ;">
+=======
+                                        <input type="file" id="upload" name="img" accept="image/*" style="display: inline-block ;">
+>>>>>>> 218651bc6100d76ec96b0bc1a6f695179114aba2
                                         <div id="image-preview"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 218651bc6100d76ec96b0bc1a6f695179114aba2
                     </div>
             </div>
             <div class="block">
