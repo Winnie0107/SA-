@@ -87,9 +87,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $seller_name = $seller_name_row['STName'];
         mysqli_free_result($seller_name_result);
 
+        // 獲取賣家 email
+        $get_seller_email_query = "SELECT email FROM user WHERE ID = '$seller_ID'";
+        $seller_email_result = mysqli_query($link, $get_seller_email_query);
+        $seller_email_row = mysqli_fetch_assoc($seller_email_result);
+        $seller_email = $seller_email_row['email'];
+
+        $_SESSION['seller_email'][$seller_ID] = $seller_email;
+
+
         //email顯示資料
         $_SESSION['order_details'][$seller_ID][] = [
             'user_name' => $user_account, // 用戶名稱
+            'user_email' => $_SESSION['user_email'], //用戶mail
             'product_name' => $product_name, // 產品名稱
             'quantity' => $quantity, // 數量
             'order_price' => $order_price, // 訂單價格
@@ -121,7 +131,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // 跳轉到寄email後端
 
-    header("Location: mail_buyer_order.php");
+    header("Location: mail_order.php");
     exit();
 }
 

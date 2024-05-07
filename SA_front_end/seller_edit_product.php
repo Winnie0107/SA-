@@ -72,7 +72,7 @@
 
                     // 處理上傳的圖片
                     $img = addslashes(file_get_contents($_FILES['img']['tmp_name']));
-                    
+
                     // 確保有選擇新的圖片
                     if ($_FILES['img']['error'] === UPLOAD_ERR_OK) {
                         // 有新的圖片被上傳
@@ -81,7 +81,7 @@
                         // 沒有新的圖片被上傳，使用原本的圖片
                         $img = $product['img']; // 使用原始資料庫中的圖片
                     }
-                    
+
                     // 在這之後，進行更新資料庫的動作
                     $update_query = "UPDATE product 
                                     SET PName='$PName', 
@@ -89,16 +89,16 @@
                                         details='$details', 
                                         price='$price', 
                                         quantity='$quantity'";
-                    
+
                     // 只有在有新圖片被上傳時才更新圖片欄位
                     if ($_FILES['img']['error'] === UPLOAD_ERR_OK) {
                         $update_query .= ", img='$img'";
                     }
-                    
+
                     $update_query .= " WHERE PNumber='$product_id'";
-                    
+
                     // 執行更新資料庫的動作
-                    
+                
 
                     $update_result = mysqli_query($link, $update_query);
 
@@ -119,7 +119,9 @@
                                 <table style="width: 100%;">
                                     <tr>
                                         <td style="background-color:white;">名稱</td>
-                                        <td colspan="3"><input type="text" class="form-control" name="PName" value="<?php echo isset($product['PName']) ? $product['PName'] : ''; ?>" placeholder="Product Name Please!" required></td>
+                                        <td colspan="3"><input type="text" class="form-control" name="PName"
+                                                value="<?php echo isset($product['PName']) ? $product['PName'] : ''; ?>"
+                                                placeholder="Product Name Please!" required></td>
                                     </tr>
                                     <tr>
                                         <td>種類</td>
@@ -134,31 +136,35 @@
                                     </tr>
                                     <tr>
                                         <td>盲盒介紹</td>
-                                        <td colspan="3"><textarea class="form-control" name="details" rows="5" placeholder="You can list the potential items that might appear in your Mystery Box!"><?php echo isset($product['details']) ? $product['details'] : ''; ?></textarea></textarea>
+                                        <td colspan="3"><textarea class="form-control" name="details" rows="5"
+                                                placeholder="You can list the potential items that might appear in your Mystery Box!"><?php echo isset($product['details']) ? $product['details'] : ''; ?></textarea></textarea>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>價錢</td>
-                                        <td><input type="text" class="form-control" name="price" value="<?php echo isset($product['price']) ? $product['price'] : ''; ?>" placeholder="Price" required></td>
+                                        <td><input type="text" class="form-control" name="price"
+                                                value="<?php echo isset($product['price']) ? $product['price'] : ''; ?>"
+                                                placeholder="Price" required></td>
                                         <td>數量</td>
-                                        <td><input type="text" class="form-control" name="quantity" value="<?php echo isset($product['quantity']) ? $product['quantity'] : ''; ?>" placeholder="Quantity" required></td>
+                                        <td><input type="text" class="form-control" name="quantity"
+                                                value="<?php echo isset($product['quantity']) ? $product['quantity'] : ''; ?>"
+                                                placeholder="Quantity" required></td>
                                     </tr>
                                 </table>
                             </div>
                         </div>
                         <div class="col-md-4" style="width: 30%;">
-    <div class="product-checkout-details">
-        <div class="block">
-            <h4 class="widget-title" style="font-weight: bold;">Change Photo</h4>
-            <div class="media product-card">
-                <input type="file" id="upload" name="img" accept="image/*" style="display: inline-block ;">
-                <div id="image-preview"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
+                            <div class="product-checkout-details">
+                                <div class="block">
+                                    <h4 class="widget-title" style="font-weight: bold;">Change Photo</h4>
+                                    <div class="media product-card">
+                                        <input type="file" id="upload" name="img" accept="image/*"
+                                            style="display: inline-block ;">
+                                        <div id="image-preview"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
             </div>
             <div class="block">
@@ -173,10 +179,10 @@
     <?php include '_footer.html'; ?>
 
     <script>
-        document.getElementById('upload').addEventListener('change', function(event) {
+        document.getElementById('upload').addEventListener('change', function (event) {
             var input = event.target;
             var reader = new FileReader();
-            reader.onload = function() {
+            reader.onload = function () {
                 var img = document.createElement('img');
                 img.src = reader.result;
                 img.style.height = '220px';

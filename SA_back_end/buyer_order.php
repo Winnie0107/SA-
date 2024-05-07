@@ -8,18 +8,6 @@ if (!$link) {
     die("資料庫連接失敗: " . mysqli_connect_error());
 }
 
-if (isset($_POST['cancel_order'])) {
-    // 获取订单号
-    $order_number = $_POST['order_number'];
-
-    // 更新订单状态为 0
-    $update_query = "UPDATE p_order SET state = 0 WHERE ONumber = $order_number";
-    $update_result = mysqli_query($link, $update_query);
-
-    if (!$update_result) {
-        die("Error updating order: " . mysqli_error($link));
-    }
-}
 
 $query = "SELECT p_order.date AS order_date, 
                 p_order.total_price, 
@@ -76,7 +64,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         echo '<td>';
         echo '<form method="post">';
         echo '<input type="hidden" name="order_number" value="' . $row['ONumber'] . '">';
-        echo '<button type="submit" name="cancel_order" class="btn btn-danger" onclick="return confirm(\'是否確定取消此訂單？ (提醒：隨意取消訂單賣家可將您新增至黑名單)\')">取消</button>';
+        echo '<button type="button" class="btn btn-danger cancel-order-btn" data-toggle="modal" data-target="#cancelOrderModal" data-order-number="' . $row['ONumber'] . '">取消</button>';
         echo '</form>';
         echo '</td>';
         echo '</tr>'; // 结束当前店家的行

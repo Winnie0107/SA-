@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>上架成功</title>
+    <title>下單成功</title>
     <?php include '_head.html'; ?>
 </head>
 

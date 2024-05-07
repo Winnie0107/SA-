@@ -22,7 +22,7 @@
                     <div class="block text-center">
                         <i class="tf-ion-android-checkmark-circle"></i>
                         <h2 class="text-center">已完成上架</h2>
-                        <a href="seller_product.php" class="btn btn-main mt-20">前往商品頁</a>
+                        <a href="seller_store_page.php" class="btn btn-main mt-20">前往商品頁</a>
                     </div>
                 </div>
             </div>
