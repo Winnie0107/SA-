@@ -70,13 +70,30 @@
                     $price = $_POST['price'];
                     $quantity = $_POST['quantity'];
 
-                    // 在商品名字后面添加 "盲盒"
-                    $PName .= " 盲盒";
+                    // 如果沒有輸入新的名稱，則保留原始資料庫中的值
+                    if (empty($_POST['PName'])) {
+                        $details = $product['PName'];
+                    } else {
+                        $details = $_POST['PName'];
 
-                    // 检查盲盒介绍是否包含 "可能內容物："，如果不包含，则添加上去
-                    if (!strstr($details, "可能內容物：")) {
-                        $details = "可能內容物：" . $details;
+                        // 检查名稱是否包含 "盲盒"，如果不包含，则添加上去
+                        if (!strstr($PName, "盲盒")) {
+                            $PName = $PName . " 盲盒";
+                        }
                     }
+
+                    // 如果沒有輸入新的盲盒介紹，則保留原始資料庫中的值
+                    if (empty($_POST['details'])) {
+                        $details = $product['details'];
+                    } else {
+                        $details = $_POST['details'];
+
+                        // 检查盲盒介绍是否包含 "可能內容物："，如果不包含，则添加上去
+                        if (!strstr($details, "可能內容物：")) {
+                            $details = "可能內容物：" . $details;
+                        }
+                    }
+
 
                     // 處理上傳的圖片
                     $img = addslashes(file_get_contents($_FILES['img']['tmp_name']));
@@ -106,11 +123,7 @@
                     $update_query .= " WHERE PNumber='$product_id'";
 
                     // 執行更新資料庫的動作
-<<<<<<< HEAD
-                
-=======
 
->>>>>>> 218651bc6100d76ec96b0bc1a6f695179114aba2
 
                     $update_result = mysqli_query($link, $update_query);
 
@@ -131,9 +144,7 @@
                                 <table style="width: 100%;">
                                     <tr>
                                         <td style="background-color:white;">名稱</td>
-                                        <td colspan="3"><input type="text" class="form-control" name="PName"
-                                                value="<?php echo isset($product['PName']) ? $product['PName'] : ''; ?>"
-                                                placeholder="Product Name Please!" required></td>
+                                        <td colspan="3"><input type="text" class="form-control" name="PName" value="<?php echo isset($_POST['PName']) ? ($_POST['PName']) : (isset($product['PName']) ? $product['PName'] : ''); ?><?php echo strpos($product['PName'], "盲盒") === false ? "盲盒" : ""; ?>" placeholder="Product Name Please!" required></td>
                                     </tr>
                                     <tr>
                                         <td>種類</td>
@@ -147,27 +158,14 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                    <tr>
-                                    <tr>
                                         <td>盲盒介紹</td>
-<<<<<<< HEAD
-                                        <td colspan="3"><textarea class="form-control" name="details" rows="5"
-                                                placeholder="You can list the potential items that might appear in your Mystery Box!"><?php echo isset($product['details']) ? $product['details'] : ''; ?></textarea></textarea>
-                                        </td>
-=======
-                                        <td colspan="3"><textarea class="form-control" name="details" rows="5" placeholder="<?php echo isset($product['details']) ? $product['details'] : '可能內容物：'; ?>"></textarea></td>
-                                    </tr>
->>>>>>> 218651bc6100d76ec96b0bc1a6f695179114aba2
+                                        <td colspan="3"><textarea class="form-control" name="details" rows="5" placeholder=""><?php echo isset($_POST['details']) ? $_POST['details'] : (isset($product['details']) ? $product['details'] : ''); ?></textarea></td>
                                     </tr>
                                     <tr>
                                         <td>價錢</td>
-                                        <td><input type="text" class="form-control" name="price"
-                                                value="<?php echo isset($product['price']) ? $product['price'] : ''; ?>"
-                                                placeholder="Price" required></td>
+                                        <td><input type="text" class="form-control" name="price" value="<?php echo isset($product['price']) ? $product['price'] : ''; ?>" placeholder="Price" required></td>
                                         <td>數量</td>
-                                        <td><input type="text" class="form-control" name="quantity"
-                                                value="<?php echo isset($product['quantity']) ? $product['quantity'] : ''; ?>"
-                                                placeholder="Quantity" required></td>
+                                        <td><input type="text" class="form-control" name="quantity" value="<?php echo isset($product['quantity']) ? $product['quantity'] : ''; ?>" placeholder="Quantity" required></td>
                                     </tr>
                                 </table>
                             </div>
@@ -177,29 +175,22 @@
                                 <div class="block">
                                     <h4 class="widget-title" style="font-weight: bold;">Change Photo</h4>
                                     <div class="media product-card">
-<<<<<<< HEAD
-                                        <input type="file" id="upload" name="img" accept="image/*"
-                                            style="display: inline-block ;">
-=======
                                         <input type="file" id="upload" name="img" accept="image/*" style="display: inline-block ;">
->>>>>>> 218651bc6100d76ec96b0bc1a6f695179114aba2
                                         <div id="image-preview"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-<<<<<<< HEAD
-=======
 
 
->>>>>>> 218651bc6100d76ec96b0bc1a6f695179114aba2
                     </div>
             </div>
             <div class="block">
                 <div class="card-details" style="text-align: center;">
                     <input class="btn btn-main mt-20" type="submit" name="submit" value="修改商品資訊">
-                    </form>
                 </div>
+                </form>
+
             </div>
         </div>
     </div>
@@ -207,10 +198,10 @@
     <?php include '_footer.html'; ?>
 
     <script>
-        document.getElementById('upload').addEventListener('change', function (event) {
+        document.getElementById('upload').addEventListener('change', function(event) {
             var input = event.target;
             var reader = new FileReader();
-            reader.onload = function () {
+            reader.onload = function() {
                 var img = document.createElement('img');
                 img.src = reader.result;
                 img.style.height = '220px';
