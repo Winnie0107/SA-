@@ -44,9 +44,6 @@ try {
     }
 
 
-
-
-
     // Email body formatting
     $mailContent = "
         <html>

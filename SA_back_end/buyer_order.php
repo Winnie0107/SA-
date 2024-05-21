@@ -105,6 +105,8 @@ while ($row = mysqli_fetch_assoc($result)) {
             echo '<span>訂單已完成</span>';
         } elseif ($row['ship'] >= 1 && $row['pick'] != 1) {
             echo '<button type="submit" name="complete_order" class="btn btn-success">取貨完成</button>';
+        } elseif ($row['state'] == 0){
+            echo '<span style="line-height: 32px">訂單已取消</span>';
         } else {
             echo '<button type="button" class="btn btn-danger cancel-order-btn" data-toggle="modal" data-target="#cancelOrderModal" data-order-number="' . $row['ONumber'] . '">取消</button>';
         }

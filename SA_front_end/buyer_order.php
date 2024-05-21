@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>我的訂單</title>
     <?php include '_head.html'; ?>
@@ -7,14 +8,21 @@
         td {
             vertical-align: middle !important;
         }
+
         .page-wrapper {
             padding: 20px 0;
         }
+
         label {
             font-size: large;
         }
+
+        .order-status {
+            padding: 10px;
+        }
     </style>
 </head>
+
 <body id="body">
     <!-- Header -->
     <?php include '_buyer_header.php'; ?>
@@ -50,8 +58,8 @@
     </section>
 
     <!-- Modal for cancelling order -->
-<!-- modal -->
-<div class="modal fade" id="cancelOrderModal" tabindex="-1" role="dialog" aria-labelledby="cancelOrderModalLabel"
+    <!-- modal -->
+    <div class="modal fade" id="cancelOrderModal" tabindex="-1" role="dialog" aria-labelledby="cancelOrderModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -80,34 +88,48 @@
     </div>
 
     <!-- Modal for viewing order status -->
-    <div class="modal fade" id="orderStatusModal" tabindex="-1" role="dialog" aria-labelledby="orderStatusModalLabel" aria-hidden="true">
+    <div class="modal fade" id="orderStatusModal" tabindex="-1" role="dialog" aria-labelledby="orderStatusModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="orderStatusModalLabel">訂單狀態</h5>
+                    <label for="cancelReason">訂單狀態</label>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="order-status" style="display: flex; flex-direction: column; align-items: flex-start; gap: 20px;">
-                        <div class="stage" id="stage-1" style="display: flex; align-items: center; font-size: 18px; color: #ccc;">
-                            <div id="dot-1" style="width: 12px; height: 12px; border-radius: 50%; background-color: #ccc; margin-right: 10px;"></div>
+                    <div class="order-status"
+                        style="display: flex; flex-direction: column; align-items: flex-start; gap: 20px;">
+                        <div class="stage" id="stage-1"
+                            style="display: flex; align-items: center; font-size: 18px; color: #ccc;">
+                            <div id="dot-1"
+                                style="width: 12px; height: 12px; border-radius: 50%; background-color: #ccc; margin-right: 10px;">
+                            </div>
                             <div class="stage-label">訂單已確認</div>
                         </div>
                         <div style="font-size: 24px; color: #ccc; display: flex; align-items: center;">&#x2193;</div>
-                        <div class="stage" id="stage-2" style="display: flex; align-items: center; font-size: 18px; color: #ccc;">
-                            <div id="dot-2" style="width: 12px; height: 12px; border-radius: 50%; background-color: #ccc; margin-right: 10px;"></div>
+                        <div class="stage" id="stage-2"
+                            style="display: flex; align-items: center; font-size: 18px; color: #ccc;">
+                            <div id="dot-2"
+                                style="width: 12px; height: 12px; border-radius: 50%; background-color: #ccc; margin-right: 10px;">
+                            </div>
                             <div class="stage-label">賣家已出貨</div>
                         </div>
                         <div style="font-size: 24px; color: #ccc; display: flex; align-items: center;">&#x2193;</div>
-                        <div class="stage" id="stage-3" style="display: flex; align-items: center; font-size: 18px; color: #ccc;">
-                            <div id="dot-3" style="width: 12px; height: 12px; border-radius: 50%; background-color: #ccc; margin-right: 10px;"></div>
+                        <div class="stage" id="stage-3"
+                            style="display: flex; align-items: center; font-size: 18px; color: #ccc;">
+                            <div id="dot-3"
+                                style="width: 12px; height: 12px; border-radius: 50%; background-color: #ccc; margin-right: 10px;">
+                            </div>
                             <div class="stage-label">買家已取貨</div>
                         </div>
                         <div style="font-size: 24px; color: #ccc; display: flex; align-items: center;">&#x2193;</div>
-                        <div class="stage" id="stage-4" style="display: flex; align-items: center; font-size: 18px; color: #ccc;">
-                            <div id="dot-4" style="width: 12px; height: 12px; border-radius: 50%; background-color: #ccc; margin-right: 10px;"></div>
+                        <div class="stage" id="stage-4"
+                            style="display: flex; align-items: center; font-size: 18px; color: #ccc;">
+                            <div id="dot-4"
+                                style="width: 12px; height: 12px; border-radius: 50%; background-color: #ccc; margin-right: 10px;">
+                            </div>
                             <div class="stage-label">訂單已完成</div>
                         </div>
                     </div>
@@ -151,7 +173,7 @@
                     { stage: 'stage-1', dot: 'dot-1', condition: data.state >= 1 },
                     { stage: 'stage-2', dot: 'dot-2', condition: data.ship == 1 },
                     { stage: 'stage-3', dot: 'dot-3', condition: data.pick == 1 },
-                    { stage: 'stage-4', dot: 'dot-4', condition: data.ship == 1&& data.pick==1 }
+                    { stage: 'stage-4', dot: 'dot-4', condition: data.ship == 1 && data.pick == 1 }
                 ];
 
                 stages.forEach(function (stage) {
@@ -172,4 +194,5 @@
     <?php include '_footer.html'; ?>
     <?php include '_script.html'; ?>
 </body>
+
 </html>
