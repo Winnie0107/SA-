@@ -17,6 +17,8 @@ session_start();
             width: 385px;
             height: 270px;
         }
+       
+
     </style>
 	<?php include '_head.html'; ?>
 </head>
@@ -58,94 +60,10 @@ session_start();
 
                         <div class="post-comments">
                             <ul class="media-list comments-list m-bot-50 clearlist">
-                                <!-- Comment Item start-->
-                                <li class="media">
-
-                                    <a class="pull-left" href="#!">
-                                        <img class="media-object comment-avatar" src="https://img.ixintu.com/download/jpg/202001/393f66193110479438efe843d3d5a8f7.jpg!ys" alt=""
-                                            width="50" height="50" />
-                                    </a>
-
-                                    <div class="media-body">
-                                        <div class="comment-info">
-                                            <h4 class="comment-author">
-                                                <a href="#!">Jonathon Andrew</a>
-
-                                            </h4>
-                                            <time datetime="2013-04-06T13:53">July 02, 2015, at 11:34</time>
-                                            <a class="comment-button" href="#!"><i
-                                                    class="tf-ion-chatbubbles"></i>Reply</a>
-                                        </div>
-
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque at
-                                            magna ut ante eleifend eleifend.Lorem ipsum dolor sit amet, consectetur
-                                            adipisicing elit. Quod laborum minima, reprehenderit laboriosam officiis
-                                            praesentium? Impedit minus provident assumenda quae.
-                                        </p>
-                                    </div>
-
-                                </li>
-                                <!-- End Comment Item -->
-
-                                <!-- Comment Item start-->
-                                <li class="media">
-
-                                    <a class="pull-left" href="#!">
-                                        <img class="media-object comment-avatar" src="https://img.ixintu.com/download/jpg/202001/393f66193110479438efe843d3d5a8f7.jpg!ys" alt=""
-                                            width="50" height="50" />
-                                    </a>
-
-                                    <div class="media-body">
-
-                                        <div class="comment-info">
-                                            <div class="comment-author">
-                                                <a href="#!">Jonathon Andrew</a>
-                                            </div>
-                                            <time datetime="2013-04-06T13:53">July 02, 2015, at 11:34</time>
-                                            <a class="comment-button" href="#!"><i
-                                                    class="tf-ion-chatbubbles"></i>Reply</a>
-                                        </div>
-
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque at
-                                            magna ut ante eleifend eleifend. Lorem ipsum dolor sit amet, consectetur
-                                            adipisicing elit. Magni natus, nostrum iste non delectus atque ab a
-                                            accusantium optio, dolor!
-                                        </p>
-
-                                    </div>
-
-                                </li>
-                                <!-- End Comment Item -->
-
-                                <!-- Comment Item start-->
-                                <li class="media">
-
-                                    <a class="pull-left" href="#!">
-                                        <img class="media-object comment-avatar" src="https://img.ixintu.com/download/jpg/202001/393f66193110479438efe843d3d5a8f7.jpg!ys" alt=""
-                                            width="50" height="50">
-                                    </a>
-
-                                    <div class="media-body">
-
-                                        <div class="comment-info">
-                                            <div class="comment-author">
-                                                <a href="#!">Jonathon Andrew</a>
-                                            </div>
-                                            <time datetime="2013-04-06T13:53">July 02, 2015, at 11:34</time>
-                                            <a class="comment-button" href="#!"><i
-                                                    class="tf-ion-chatbubbles"></i>Reply</a>
-                                        </div>
-
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque at
-                                            magna ut ante eleifend eleifend.
-                                        </p>
-
-                                    </div>
-
-                                </li>
+                                
+                            <?php include '../SA_back_end/buyer_review.php'; ?>
+                                   
+                              
                             </ul>
                         </div>
                     </div>
