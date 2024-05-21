@@ -35,7 +35,6 @@ $query = "SELECT p_order.ONumber,
                 p_order.date AS order_date, 
                 p_order.total_price, 
                 p_order.phone_number, 
-                p_order.lineID, 
                 p_order.state,
                 p_order.ship, 
                 GROUP_CONCAT(`order item`.quantity SEPARATOR '<br>') AS quantity,
@@ -64,7 +63,6 @@ echo '<th>數量</th>';
 echo '<th>總價</th>';
 echo '<th>用戶名稱</th>';
 echo '<th>電話號碼</th>';
-echo '<th>LINE ID</th>';
 echo '<th>操作</th>';
 echo '</tr>';
 echo '</thead>';
@@ -78,7 +76,6 @@ while ($row = mysqli_fetch_assoc($result)) {
     echo '<td>$' . $row['total_price'] . '</td>';
     echo '<td>' . $row['account'] . '</td>';
     echo '<td>' . $row['phone_number'] . '</td>';
-    echo '<td>' . $row['lineID'] . '</td>';
     
     echo '<td>';
     if ($row['ship'] == 1) {
