@@ -57,7 +57,8 @@
                                 }
 
                                 $cart_id = $_SESSION['SNumber'];
-                                $query = "SELECT * FROM `shopping cart item` 
+                                $query = "SELECT `shopping cart item`.SINumber, `shopping cart item`.quantity AS cart_quantity, product.*, product.quantity AS product_quantity 
+                                FROM `shopping cart item` 
                                 JOIN product ON `shopping cart item`.PNumber = product.PNumber 
                                 WHERE SNumber = $cart_id";
 
@@ -67,28 +68,29 @@
                                     die("Error" . mysqli_error($link));
                                 }
                                 ?>
-                                <table class="table">
-                                    <tr>
-                                        <th></th>
-                                        <th>盲盒名稱</th>
-                                        <th>價錢</th>
-                                        <th>數量</th>
-                                        <th>操作</th>
-                                    </tr>
-                                    <?php
-                                    while ($row = mysqli_fetch_assoc($result)) {
-                                        echo "<tr>";
-                                        echo "<td><img src='data:image/jpeg;base64," . base64_encode($row['img']) . "' alt='product-img' class='img-thumbnail' style='width: 120px; height: 100px;'></td>";
-                                        echo "<td>" . $row['PName'] . "</td>";
-                                        echo "<td>" . $row['price'] . "</td>";
-                                        echo "<td>" . $row['quantity'] . "</td>";
-                                        echo "<td><button type='submit' name='SINumber' value='" . $row['SINumber'] . "'>移出購物車</button></td>";
-                                        echo "</tr>";
-                                    }
-                                    ?>
-                                </table>
-                                <a href="buyer_checkout.php" class="btn btn-main pull-right">前往結帳</a>
-                            </form>
+                                <form method="post" action="../SA_back_end/delete_cart_item.php">
+                                    <table class="table">
+                                        <tr>
+                                            <th></th>
+                                            <th>盲盒名稱</th>
+                                            <th>價錢</th>
+                                            <th>數量</th>
+                                            <th>操作</th>
+                                        </tr>
+                                        <?php
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            echo "<tr>";
+                                            echo "<td><img src='data:image/jpeg;base64," . base64_encode($row['img']) . "' alt='product-img' class='img-thumbnail' style='width: 120px; height: 100px;'></td>";
+                                            echo "<td>" . $row['PName'] . "</td>";
+                                            echo "<td>" . $row['price'] . "</td>";
+                                            echo "<td>" . $row['cart_quantity'] . "</td>";
+                                            echo "<td><button type='submit' name='SINumber' value='" . $row['SINumber'] . "'>移出購物車</button></td>";
+                                            echo "</tr>";
+                                        }
+                                        ?>
+                                    </table>
+                                    <a href="buyer_checkout.php" class="btn btn-main pull-right">前往結帳</a>
+                                </form>
                         </div>
                     </div>
                 </div>

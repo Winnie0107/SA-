@@ -56,31 +56,28 @@
                         <div class="block billing-details">
                             <h4 class="widget-title" style="font-weight: bold;">Contact Information</h4>
                             <form class="checkout-form" method="POST" action="../SA_back_end/buyer_place_order.php">
-
-                                <div class="form-group">
-                                    <label for="full_name">Account</label>
-                                    <input type="text" class="form-control" id="account" name="account" placeholder=""
-                                        value="<?php echo isset($_SESSION['user_account']) ? $_SESSION['user_account'] : ''; ?>"
-                                        readonly>
-                                </div>
                                 <div class="form-group">
                                     <label for="user_address">Email</label>
                                     <input type="text" class="form-control" id="email" name="email" placeholder=""
                                         value="<?php echo isset($_SESSION['user_email']) ? $_SESSION['user_email'] : ''; ?>"
                                         readonly>
                                 </div>
-                                <p style="font-size: 12px; padding: 10px; color: red;">*手機號碼為必填</p>
                                 <div class="checkout-country-code clearfix">
                                     <div class="form-group">
-                                        <label for="user_post_code">Phone Number</label>
+                                        <label for="full_name">Account</label>
+                                        <input type="text" class="form-control" id="account" name="account"
+                                            placeholder=""
+                                            value="<?php echo isset($_SESSION['user_account']) ? $_SESSION['user_account'] : ''; ?>"
+                                            readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="user_address">Phone Number</label>
                                         <input type="text" class="form-control" id="phonenumber" name="phonenumber"
                                             value="" pattern="[0-9]{10}" required>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="user_city">line ID</label>
-                                        <input type="text" class="form-control" id="line_id" name="line_id" value="">
-                                    </div>
                                 </div>
+                                <p style="font-size: 12px; padding: 10px; color: red;">*手機號碼為必填</p>
+
                         </div>
                         <div class="block">
                             <div class="checkout-product-details">

@@ -53,8 +53,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (!isset($order_numbers[$seller_ID])) {
             // 如果是新的賣家，則插入新的訂單
-            $insert_order_query = "INSERT INTO p_order (buyer_ID, total_price, date, phone_number, lineID, state) 
-                                   VALUES ('$buyer_ID', '$order_price', '$date', '$phone_number', '$line_id', '$state')";
+            $insert_order_query = "INSERT INTO p_order (buyer_ID, total_price, date, phone_number, state) 
+                                   VALUES ('$buyer_ID', '$order_price', '$date', '$phone_number', '$state')";
             mysqli_query($link, $insert_order_query);
             $order_numbers[$seller_ID]['ONumber'] = mysqli_insert_id($link);
             $order_numbers[$seller_ID]['total_price'] = $order_price;

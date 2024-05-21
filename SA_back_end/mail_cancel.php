@@ -21,30 +21,47 @@ $update_query = "UPDATE p_order SET state = 0, reason_for_cancel = '$cancel_reas
 $update_result = mysqli_query($link, $update_query);
 
 if (!$update_result) {
-    die("Error updating order: " . mysqli_error($link));
+    die("更新訂單時出錯: " . mysqli_error($link));
 }
 
 // 獲取訂單詳細信息
-$select_query = "SELECT * FROM p_order WHERE ONumber = '$order_number'";
+$select_query = "SELECT p_order.*, user.account AS buyer_name, user.email AS buyer_email
+                FROM p_order
+                INNER JOIN user ON p_order.buyer_ID = user.ID
+                WHERE ONumber = '$order_number'";
 $select_result = mysqli_query($link, $select_query);
 
 if (!$select_result) {
-    die("Error fetching order details: " . mysqli_error($link));
+    die("獲取訂單詳細信息時出錯: " . mysqli_error($link));
 }
 
 $order_details = mysqli_fetch_assoc($select_result);
 
-// 獲取買家郵件地址
-$buyer_id = $order_details['buyer_ID'];
-$user_query = "SELECT email FROM user WHERE ID = '$buyer_id'";
-$user_result = mysqli_query($link, $user_query);
+// 獲取賣家郵件地址和訂單詳情
+$seller_query = "SELECT user.email AS seller_email, product.PName, store_info.STName, `order item`.quantity, product.price 
+                 FROM `order item`
+                 JOIN product ON `order item`.PNumber = product.PNumber
+                 JOIN user ON product.seller_ID = user.ID
+                 JOIN store_info ON user.ID = store_info.seller_ID
+                 WHERE `order item`.ONumber = '$order_number'";
+$seller_result = mysqli_query($link, $seller_query);
 
-if (!$user_result) {
-    die("Error fetching buyer email: " . mysqli_error($link));
+if (!$seller_result) {
+    die("獲取賣家郵件地址和訂單詳情時出錯: " . mysqli_error($link));
 }
 
-$user_data = mysqli_fetch_assoc($user_result);
-$buyer_email = $user_data['email'];
+$seller_emails = [];
+$order_items = [];
+
+while ($row = mysqli_fetch_assoc($seller_result)) {
+    $seller_emails[$row['seller_email']] = $row['seller_email']; // 收集唯一的賣家郵件地址
+    $order_items[] = [
+        'product_name' => $row['PName'],
+        'quantity' => $row['quantity'],
+        'price' => $row['price'],
+        'seller_name' => $row['STName']
+    ];
+}
 
 // 關閉資料庫連接
 mysqli_close($link);
@@ -64,36 +81,55 @@ try {
     $mail->Port = 587; // SMTP 端口號
 
     // 發送郵件給買家
-    $mail->addAddress($buyer_email);
-    $mail->Subject = '=?UTF-8?B?' . base64_encode('訂單取消通知') . '?='; 
-    $mail->Body = "您的訂單已取消。\n\n取消原因：$cancel_reason\n\n";
+    $mail->addAddress($order_details['buyer_email']);
+    $mail->Subject = '=?UTF-8?B?' . base64_encode('惜物盲盒：訂單取消通知') . '?=';
+    $mailContent = "{$order_details['buyer_name']} 您好，很遺憾的通知您，您的訂單已被取消。\n\n取消原因：$cancel_reason\n\n";
+
+    $mailContent .= "以下是訂單詳情：\n";
+
+    $mailContent .= "商店名稱：{$order_items[0]['seller_name']}\n"; 
+    foreach ($order_items as $item) {
+        $mailContent .= "商品名稱：{$item['product_name']}\n";
+        $mailContent .= "數量：{$item['quantity']}\n";
+        $mailContent .= "總價：{$item['price']}\n\n";
+    }
+    $mailContent .= "如果您有任何疑問或需要幫助，請隨時與我們聯繫。感謝您的理解與支持！\n\n惜物盲盒平台 敬上\n\n";
+
+    $mail->Body = $mailContent;
     $mail->send();
 
     // 發送郵件給賣家
-    foreach ($_SESSION['order_details'] as $seller_ID => $order_data) {
+    foreach ($seller_emails as $seller_email) {
         $mail->clearAddresses(); // 清除之前的收件人
-    
-        // 添加卖家的邮件地址
-        $mail->addAddress($_SESSION['seller_email'][$seller_ID]);
-    
-        // 生成邮件内容
-        $mailContent = "您收到一份新的订单取消通知：\n\n";
-        foreach ($order_data as $order) {
-            $mailContent .= "订单号：{$order['ONumber']}\n";
-            $mailContent .= "取消原因：$cancel_reason\n\n";
+        $mail->addAddress($seller_email);
+
+        $mailContent = "很遺憾的通知您\n商店 {$item['seller_name']} 收到一份新的訂單取消通知：\n\n";
+        $mailContent .= "取消原因：$cancel_reason\n\n";
+
+        $mailContent .= "以下是訂單詳情：\n";
+        foreach ($order_items as $item) {
+            $mailContent .= "商品名稱：{$item['product_name']}\n";
+            $mailContent .= "數量：{$item['quantity']}\n";
+            $mailContent .= "總價：{$item['price']}\n\n";
+
         }
-        // 你可以在这里添加更多相关于卖家的信息
-    
-        // 设置邮件主题和内容
-        $mail->Subject = '=?UTF-8?B?' . base64_encode('订单取消通知') . '?='; 
+        $mailContent .= "買家：{$order_details['buyer_name']}\n";
+        $mailContent .= "買家郵件：{$order_details['buyer_email']}\n\n";
+        $mailContent .= "如果您有任何疑問或需要幫助，請隨時與我們聯繫。感謝您的理解與支持！\n\n惜物盲盒平台 敬上\n\n";
+
+        $mail->Subject = '=?UTF-8?B?' . base64_encode('惜物盲盒：訂單取消通知') . '?=';
         $mail->Body = $mailContent;
-    
-        // 发送邮件
         $mail->send();
     }
 
     // 跳轉到某個頁面
-    header("Location: ../SA_front_end/buyer_order.php");
+    if ($order_details['buyer_ID'] == $_SESSION['user_id']) {
+        // 如果訂單取消者是買家，導向買家訂單頁面
+        header("Location: ../SA_front_end/buyer_order.php");
+    } else {
+        // 否則，導向賣家訂單頁面
+        header("Location: ../SA_front_end/seller_order.php");
+    }
     exit();
 
 } catch (Exception $e) {

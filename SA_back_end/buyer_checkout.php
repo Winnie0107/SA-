@@ -26,7 +26,7 @@ if (mysqli_num_rows($result) == 0) {
         echo "<div class='media-body'>";
         echo "<h4 class='media-heading'><a href='product-single.html'>" . $row['PName'] . "</a></h4>";
         echo "<p class='price'>" . $row['quantity'] . " x " . $row['price'] . "</p>";
-        echo "<form action='../SA_back_end/delete_cart_item.php' method='POST'>";      
+        echo "<form action='../SA_back_end/delete_checkout_item.php' method='POST'>";      
         echo "<input type='hidden' name='PNumber' value='" . $PNumber . "'>"; // Hidden input for item number
         echo "<button type='submit' class='btn btn-danger btn-sm'>Remove</button>"; // Remove button
         echo "</form>";
