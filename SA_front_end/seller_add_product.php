@@ -44,7 +44,6 @@
             <div class="container">
                 <form method="post" action="..\SA_back_end\seller_add.php" enctype="multipart/form-data">
                     <div class="row">
-                        <div class="col-md-8" style="width: 70%;">
                             <div class="block billing-details">
                                 <h4 class="widget-title" style="font-weight: bold;">Product Information</h4>
                                 <table style="width: 100%;">
@@ -76,7 +75,6 @@
                                     </tr>
                                 </table>
                             </div>
-                        </div>
                     </div>
             </div>
             <div class="block">
