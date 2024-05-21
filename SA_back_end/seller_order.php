@@ -15,7 +15,19 @@ if(isset($_POST['cancel_order'])) {
     $update_result = mysqli_query($link, $update_query);
 
     if (!$update_result) {
-        die("Error updating order: " . mysqli_error($link));
+        die("更新訂單時出錯: " . mysqli_error($link));
+    }
+}
+
+if(isset($_POST['ship_order'])) {
+    $order_number = $_POST['order_number'];
+    
+    $update_query = "UPDATE p_order SET ship = 1 WHERE ONumber = '$order_number'";
+    
+    if (mysqli_query($link, $update_query)) {
+        echo '<span>訂單已成功出貨！<a href="http://localhost/SA-/SA_front_end/seller_order.php">點我回到訂單頁面</a></span>';
+    } else {
+        echo "出貨操作失敗：" . mysqli_error($link);
     }
 }
 
@@ -25,6 +37,7 @@ $query = "SELECT p_order.ONumber,
                 p_order.phone_number, 
                 p_order.lineID, 
                 p_order.state,
+                p_order.ship, 
                 GROUP_CONCAT(`order item`.quantity SEPARATOR '<br>') AS quantity,
                 GROUP_CONCAT(product.PName SEPARATOR '<br>') AS PName, 
                 user.account
@@ -39,7 +52,7 @@ $query = "SELECT p_order.ONumber,
 $result = mysqli_query($link, $query);
 
 if (!$result) {
-    die("Error: " . mysqli_error($link));
+    die("查詢訂單時出錯: " . mysqli_error($link));
 }
 
 echo '<table class="table">';
@@ -52,7 +65,7 @@ echo '<th>總價</th>';
 echo '<th>用戶名稱</th>';
 echo '<th>電話號碼</th>';
 echo '<th>LINE ID</th>';
-echo '<th>訂單狀態</th>';
+echo '<th>操作</th>';
 echo '</tr>';
 echo '</thead>';
 echo '<tbody>';
@@ -67,16 +80,19 @@ while ($row = mysqli_fetch_assoc($result)) {
     echo '<td>' . $row['phone_number'] . '</td>';
     echo '<td>' . $row['lineID'] . '</td>';
     
-    if ($row['state'] == 1) {
-        echo '<td>';
-        echo '<form method="post">';
+    echo '<td>';
+    if ($row['ship'] == 1) {
+        echo '<a href="#" class="order-status-link" data-toggle="modal" data-target="#orderStatusModal" data-order-number="' . $row['ONumber'] . '" style="color: blue;">查看訂單狀態</a>';
+    } elseif ($row['state'] >= 1) {
+        echo '<form method="post" style="display: flex; align-items: center;">';
         echo '<input type="hidden" name="order_number" value="' . $row['ONumber'] . '">';
-        echo '<button type="submit" name="cancel_order" class="btn btn-danger" onclick="return confirm(\'是否確定取消此訂單？ (提醒：隨意取消訂單可能導致商店評分下降)\')">取消</button>';
-        echo '</form>';
-        echo '</td>';
+        echo '<button type="submit" name="ship_order" class="btn btn-success" onclick="return confirm(\'是否確定已寄出商品？ \')">出貨</button>';
+        echo '<input type="hidden" name="order_number" value="' . $row['ONumber'] . '">';
+        echo '<button type="button" class="btn btn-danger cancel-order-btn" data-toggle="modal" data-target="#cancelOrderModal" data-order-number="' . $row['ONumber'] . '">取消</button>';        echo '</form>';
     } else {
-        echo '<td>已取消</td>';
+        echo '<span style="color: red;">已取消</span>';
     }
+    echo '</td>';
     
     echo '</tr>';
 }
@@ -86,3 +102,4 @@ echo '</table>';
 
 mysqli_close($link);
 ?>
+
