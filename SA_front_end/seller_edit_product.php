@@ -181,17 +181,15 @@
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
+                    <div class="block">
+                        <div class="card-details" style="text-align: center;">
+                            <input class="btn btn-main mt-20" type="submit" name="submit" value="修改商品資訊">
+                        </div>
+                    </div>
+                </form>    
             </div>
-            <div class="block">
-                <div class="card-details" style="text-align: center;">
-                    <input class="btn btn-main mt-20" type="submit" name="submit" value="修改商品資訊">
-                </div>
-                </form>
 
-            </div>
         </div>
     </div>
 

@@ -27,10 +27,10 @@
 </head>
 <body id="body">
     <!-- Header -->
-    <?php include '_buyer_header.php'; ?>
+    <?php include '_seller_header.php'; ?>
 
     <!-- Menu -->
-    <?php include '_buyer_menu.html'; ?>
+    <?php include '_seller_menu.html'; ?>
   
 
     <section class="page-header">
@@ -53,7 +53,7 @@
         <div class="giving-feedback">
             <input type="hidden" name="dbaction" value="insert">
             <div class="container" style="padding:10px;">
-                <form method="post" action="../SA_back_end/feedback.php" enctype="multipart/form-data">
+                <form method="post" action="../SA_back_end/sfeedback.php" enctype="multipart/form-data">
                     <div class="row">
                         <div class="block billing-details">
                             <h4 class="widget-title" style="font-weight: bold; font-size:17px;">
