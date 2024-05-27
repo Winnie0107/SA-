@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $query_store_number = "SELECT store_info.STNumber FROM product
                            INNER JOIN store_info ON product.seller_ID = store_info.seller_ID
                            WHERE product.PNumber IN (
-                               SELECT `order item`.PNumber FROM `order item`
+                               SELECT `order item`.PNumber FROM order item
                                WHERE `order item`.ONumber = ?
                            )";
     $stmt_store_number = mysqli_prepare($link, $query_store_number);
