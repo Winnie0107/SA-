@@ -32,10 +32,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     mysqli_stmt_fetch($stmt_store_number);
     mysqli_stmt_close($stmt_store_number);
 
+    $query_order_item_number = "SELECT `OINumber` FROM `order item` WHERE `ONumber` = ?";
+    $stmt_order_item_number = mysqli_prepare($link, $query_order_item_number);
+    mysqli_stmt_bind_param($stmt_order_item_number, 's', $order_number);
+    mysqli_stmt_execute($stmt_order_item_number);
+    mysqli_stmt_bind_result($stmt_order_item_number, $order_item_number);
+    mysqli_stmt_fetch($stmt_order_item_number);
+    mysqli_stmt_close($stmt_order_item_number);
+
     // 插入评论到数据库
-    $query_insert_review = "INSERT INTO review (OINumber, ID, ReviewContent, img, ReviewTime, STNumber) VALUES (?, ?, ?, ?, NOW(), ?)";
+    $query_insert_review = "INSERT INTO `review` (`OINumber`, `ID`, `ReviewContent`, `img`, `ReviewTime`, `STNumber`) VALUES (?, ?, ?, ?, NOW(), ?)";
     $stmt_insert_review = mysqli_prepare($link, $query_insert_review);
-    mysqli_stmt_bind_param($stmt_insert_review, 'sissi', $order_number, $user_id, $review_content, $review_image, $store_number);
+    mysqli_stmt_bind_param($stmt_insert_review, 'sissi', $order_item_number, $user_id, $review_content, $review_image, $store_number);
+
 
     if (mysqli_stmt_execute($stmt_insert_review)) {
         echo json_encode(['success' => true]);
