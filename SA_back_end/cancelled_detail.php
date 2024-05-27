@@ -1,0 +1,76 @@
+<?php
+session_start();
+$user_id = $_REQUEST['user_id']; // 從 HTTP 請求中獲取 user_id
+$seller_id = $_SESSION['user_id']; // 從 session 中獲取當前登錄商店的 seller_ID
+
+$link = mysqli_connect('localhost', 'root', '12345678', 'box');
+
+if (!$link) {
+    die("資料庫連接失敗: " . mysqli_connect_error());
+}
+
+if (isset($_POST['cancel_order'])) {
+    $order_number = $_POST['order_number'];
+
+    $update_query = "UPDATE p_order SET state = 0 WHERE ONumber = $order_number";
+    $update_result = mysqli_query($link, $update_query);
+
+    if (!$update_result) {
+        die("Error updating order: " . mysqli_error($link));
+    }
+}
+
+$query = "SELECT p_order.ONumber, 
+                p_order.date AS order_date, 
+                p_order.total_price, 
+                p_order.reason_for_cancel,
+                GROUP_CONCAT(`order item`.quantity SEPARATOR '<br>') AS quantity,
+                GROUP_CONCAT(product.PName SEPARATOR '<br>') AS PName, 
+                user.account,
+                user.ID AS user_id,
+                (SELECT COUNT(*) FROM p_order WHERE p_order.buyer_ID = user.ID AND p_order.state = 0) AS cancel_count
+                FROM `order item`
+                INNER JOIN product ON `order item`.PNumber = product.PNumber
+                INNER JOIN p_order ON `order item`.ONumber = p_order.ONumber
+                INNER JOIN user ON p_order.buyer_ID = user.ID
+                WHERE p_order.buyer_ID = '$user_id' AND p_order.state = 0
+                AND product.seller_ID = '$seller_id'  -- 使用當前登錄商店的 seller_ID 來過濾
+                GROUP BY `order item`.ONumber
+                ORDER BY `order item`.ONumber DESC
+                ";
+
+$result = mysqli_query($link, $query);
+
+if (!$result) {
+    die("Error: " . mysqli_error($link));
+}
+
+echo '<table class="table">';
+echo '<thead>';
+echo '<tr>';
+echo '<th>買家名稱</th>';
+echo '<th>訂單日期</th>';
+echo '<th>商品名稱</th>';
+echo '<th>數量</th>';
+echo '<th>總價</th>';
+echo '<th>取消原因</th>';
+echo '</tr>';
+echo '</thead>';
+echo '<tbody>';
+
+while ($row = mysqli_fetch_assoc($result)) {
+    echo '<tr>';
+    echo '<td><span class="clickable" data-toggle="modal" data-target="#blacklist-modal" data-userid="' . $row['user_id'] . '" data-account="' . $row['account'] . '" data-cancelcount="' . $row['cancel_count'] . '">' . $row['account'] . '</span></td>';
+    echo '<td>' . $row['order_date'] . '</td>';
+    echo '<td>' . $row['PName'] . '</td>';
+    echo '<td>' . $row['quantity'] . '</td>';
+    echo '<td>$' . $row['total_price'] . '</td>';
+    echo '<td>' . $row['reason_for_cancel'] . '</td>';
+    echo '</tr>';
+}
+
+echo '</tbody>';
+echo '</table>';
+
+mysqli_close($link);
+?>
