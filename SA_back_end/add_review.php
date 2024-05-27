@@ -11,12 +11,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $review_content = $_POST['review_content'];
     $user_id = $_SESSION['user_id']; // 假設用戶ID已存在於會話中
 
-    // 處理評論圖片
-    $review_image = null;
-    if (isset($_FILES['review_image']) && $_FILES['review_image']['error'] === UPLOAD_ERR_OK) {
-        $image_data = file_get_contents($_FILES['review_image']['tmp_name']);
-        $review_image = base64_encode($image_data);
+    // 確保文件已成功上傳
+    if (isset($_FILES['review_image']) && $_FILES['review_image']['error'] == UPLOAD_ERR_OK) {
+        $review_image = $_FILES['review_image']['tmp_name'];
+        $data = mysqli_real_escape_string($link, file_get_contents($review_image));
+    } else {
+        $data = NULL; // 如果没有上传图片
     }
+
 
     // 查询产品对应的商店编号
     $query_store_number = "SELECT store_info.STNumber FROM product
@@ -32,10 +34,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     mysqli_stmt_fetch($stmt_store_number);
     mysqli_stmt_close($stmt_store_number);
 
+    // 確認 store_number 是否正確獲取
+    if (!$store_number) {
+        echo json_encode(['success' => false, 'error' => '無法獲取 store_number']);
+        exit;
+    }
+
     // 插入评论到数据库
     $query_insert_review = "INSERT INTO review (OINumber, ID, ReviewContent, img, ReviewTime, STNumber) VALUES (?, ?, ?, ?, NOW(), ?)";
     $stmt_insert_review = mysqli_prepare($link, $query_insert_review);
-    mysqli_stmt_bind_param($stmt_insert_review, 'sissi', $order_number, $user_id, $review_content, $review_image, $store_number);
+    mysqli_stmt_bind_param($stmt_insert_review, 'sissi', $order_number, $user_id, $review_content, $data, $store_number);
 
     if (mysqli_stmt_execute($stmt_insert_review)) {
         echo json_encode(['success' => true]);

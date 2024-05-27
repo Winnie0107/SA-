@@ -84,6 +84,7 @@ if(isset($_GET['store_number'])) {
         if ($row['img'] != NULL) {
             echo '<img class="review-image" src="data:image/jpeg;base64,' . base64_encode($row['img']) . '" alt="Review Image" />';
         }
+        
         echo '</li>';
     }
 
