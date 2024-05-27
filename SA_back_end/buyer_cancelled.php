@@ -14,11 +14,15 @@ $query = "
            IFNULL(COUNT(p_order.ONumber), 0) AS cancel_count
     FROM user u
     LEFT JOIN p_order ON u.ID = p_order.buyer_ID AND p_order.state = 0
+    LEFT JOIN `order item` oi ON p_order.ONumber = oi.ONumber
+    LEFT JOIN product p ON oi.PNumber = p.PNumber
     WHERE u.acco_level = 0 
-    and u.ID not in (select buyer from blacklist)
+    AND u.ID NOT IN (SELECT buyer FROM blacklist WHERE seller = $user_id)
+    AND p.seller_ID = $user_id
     GROUP BY u.account
     HAVING cancel_count > 0
 ";
+
 $result = mysqli_query($link, $query);
 
 if (!$result) {
