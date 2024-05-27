@@ -193,6 +193,8 @@
 
     <?php include '_footer.html'; ?>
     <?php include '_script.html'; ?>
-</body>
 
-</html>
+
+
+
+<!-- Your existing table code -->

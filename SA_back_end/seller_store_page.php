@@ -33,6 +33,12 @@ while ($row = mysqli_fetch_assoc($result)) {
     echo '</div>';
     echo '</div>';
     echo '</div>';
+    echo '<div class="card-details" style="margin-left:80%;">';
+    echo '<form action="seller_edit_page.php" method="get">';
+    echo '<input type="hidden" name="STNumber" value="' . $row['STNumber'] . '">';
+    echo '<input class="btn btn-main mt-20" type="submit" value="修改商店主頁">';
+    echo '</form>';
+    echo '</div>';
     echo '</section>';
 }
 ?>

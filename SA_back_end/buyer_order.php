@@ -102,7 +102,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         echo '<form method="post">';
         echo '<input type="hidden" name="order_number" value="' . $row['ONumber'] . '">';
         if ($row['ship'] == 1 && $row['pick'] == 1) {
-            echo '<span>訂單已完成</span>';
+            echo '<button type="button" class="comment-button" style="font-size: 16px; color: white; background-color: orange; border: none; border-radius: 4px; padding: 5px 10px; cursor: pointer;" data-toggle="modal" data-target="#commentModal">留下評論</button>';
         } elseif ($row['ship'] >= 1 && $row['pick'] != 1) {
             echo '<button type="submit" name="complete_order" class="btn btn-success">取貨完成</button>';
         } elseif ($row['state'] == 0){
@@ -120,3 +120,40 @@ echo '</tbody>';
 echo '</table>';
 mysqli_close($link);
 ?>
+
+<!-- 新增評論 Modal -->
+<div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="commentModalLabel">新增評論</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="commentForm" action="../SA_back_end/add_review.php" method="POST" enctype="multipart/form-data">
+          <input type="hidden" id="orderNumber" name="order_number">
+          <div class="form-group">
+            <label for="reviewContent">留下你的評論</label>
+            <textarea class="form-control" id="reviewContent" name="review_content" rows="3" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="reviewImage">上傳圖片</label>
+            <input type="file" class="form-control-file" id="reviewImage" name="review_image">
+          </div>
+          <button type="submit" class="btn btn-primary">提交</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.comment-button').forEach(button => {
+    button.addEventListener('click', function() {
+        var orderNumber = this.closest('form').querySelector('input[name="order_number"]').value;
+        document.getElementById('orderNumber').value = orderNumber;
+    });
+});
+</script>
