@@ -1,5 +1,9 @@
 <?php
 session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    die("User not logged in");
+}
 $user_id = $_SESSION['user_id'];
 
 $link = mysqli_connect('localhost', 'root', '12345678', 'box');
@@ -10,19 +14,18 @@ if (!$link) {
 
 // 查詢用戶名稱和取消次數，只顯示取消次數不為零的買家
 $query = "
-    SELECT u.id as buyer_id, u.account AS account, 
+    SELECT u.id as buyer_id, u.account AS account,
            IFNULL(COUNT(p_order.ONumber), 0) AS cancel_count
     FROM user u
     LEFT JOIN p_order ON u.ID = p_order.buyer_ID AND p_order.state = 0
-    LEFT JOIN `order item` oi ON p_order.ONumber = oi.ONumber
-    LEFT JOIN product p ON oi.PNumber = p.PNumber
+    LEFT JOIN `order item` ON p_order.ONumber = `order item`.ONumber
+    LEFT JOIN product ON `order item`.PNumber = product.PNumber
     WHERE u.acco_level = 0 
-    AND u.ID NOT IN (SELECT buyer FROM blacklist WHERE seller = $user_id)
-    AND p.seller_ID = $user_id
+    AND product.seller_ID = $user_id
+    AND u.ID NOT IN (SELECT buyer FROM blacklist)
     GROUP BY u.account
     HAVING cancel_count > 0
 ";
-
 $result = mysqli_query($link, $query);
 
 if (!$result) {
