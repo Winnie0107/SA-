@@ -8,15 +8,86 @@ session_start();
 <head>
     <title>我的商品</title>
     <style>
-        .product-item .product-thumb img.img-set {
-            width: 100%;
-            height: 240px;
-        }
-        img.img-set {
-            width: 385px;
-            height: 270px;
-        }
-    </style>
+    .product-item .product-thumb img.img-set {
+        width: 100%;
+        height: 240px;
+    }
+    img.img-set {
+        width: 385px;
+        height: 270px;
+    }
+    .media {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 20px;
+    }
+    .media-left {
+        margin-right: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .media-body {
+        flex: 1;
+    }
+    .review-image {
+        margin-left: 20px;
+        max-width: 200px;
+        height: auto;
+    }
+    .pagination {
+        list-style: none;
+        padding: 0;
+        display: flex;
+    }
+    .pagination li {
+        margin: 0 5px;
+    }
+    .pagination a {
+        text-decoration: none;
+        color: black;
+        padding: 5px 10px;
+    }
+    .pagination a:hover {
+        text-decoration: underline;
+    }
+    .pagination span {
+        padding: 5px 10px;
+        color: black;
+    }
+    .comment-info {
+        margin-bottom: 10px;
+    }
+    .comment-author {
+        font-weight: bold;
+    }
+    .comment-content {
+        color: #333;
+        font-size: 16px;
+    }
+    .reply-button {
+        padding: 5px 10px;
+        background-color: #808080;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+    .reply-button:hover {
+        background-color: #505050;
+    }
+    .circular-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+    .reply {
+        margin-left: 40px; /* 調整此值以達到所需的縮進效果 */
+    }
+</style>
+
     <?php include '_head.html'; ?>
 </head>
 
@@ -81,11 +152,15 @@ session_start();
         </div>
         </div>
     </section>
+   
+
 
     <!-- Footer -->
     <?php include '_footer.html'; ?>
     <!-- Scripts -->
     <?php include '_script.html'; ?>
+   
+
 
 </body>
 
