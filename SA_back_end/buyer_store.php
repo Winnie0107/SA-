@@ -1,13 +1,17 @@
 <?php
 session_start();
 
+$buyer_id = $_SESSION['user_id'];
+
 $link = mysqli_connect('localhost', 'root', '12345678', 'box');
 
 if (!$link) {
     die("Error" . mysqli_connect_error());
 }
 
-$query = "SELECT * FROM store_info ";
+$query = "SELECT * FROM store_info
+          WHERE seller_ID NOT IN (SELECT seller FROM blacklist WHERE buyer = '$buyer_id')";
+
 $result = mysqli_query($link, $query);
 
 if (!$result) {
