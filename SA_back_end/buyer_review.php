@@ -65,6 +65,7 @@ if(isset($_GET['store_number'])) {
     </style>';
 
     while ($row = mysqli_fetch_assoc($result)) {
+        echo '<ul>';
         echo '<li class="media">';
         echo '<a class="media-left" href="#!">';
         echo '<div class="circular-avatar" style="width: 50px; height: 50px; border-radius: 50%; overflow: hidden;">';
@@ -86,6 +87,39 @@ if(isset($_GET['store_number'])) {
         }
         
         echo '</li>';
+
+        // 查詢回覆
+        $reviewID = $row['ReviewID'];
+        $reply_query = "SELECT reply.*, store_info.STName AS seller_name, store_info.img AS seller_img
+                        FROM reply
+                        INNER JOIN review ON reply.ReviewID = review.ReviewID
+                        INNER JOIN store_info ON review.STNumber = store_info.STNumber
+                        WHERE reply.ReviewID = ?";
+        $reply_stmt = mysqli_prepare($link, $reply_query);
+        if (!$reply_stmt) {
+            die("準備查詢賣家回覆失敗: " . mysqli_error($link));
+        }
+        mysqli_stmt_bind_param($reply_stmt, "i", $reviewID);
+        mysqli_stmt_execute($reply_stmt);
+        $reply_result = mysqli_stmt_get_result($reply_stmt);
+
+        while ($reply_row = mysqli_fetch_assoc($reply_result)) {
+            echo '<li class="media reply">';
+            echo '<div class="media-left">';
+            echo '<div class="circular-avatar">';
+            echo '<img class="media-object comment-avatar" src="data:image/jpeg;base64,' . base64_encode($reply_row['seller_img']) . '" alt="" style="width: 100%; height: 100%; object-fit: cover;" />';
+            echo '</div>';
+            echo '</div>';
+            echo '<div class="media-body">';
+            echo '<div class="comment-info">';
+            echo '<h4 class="comment-author"><a href="#!">' . $reply_row['seller_name'] . '</a></h4>';
+            echo '<time datetime="' . $reply_row['ReplyTime'] . '">' . $reply_row['ReplyTime'] . '</time>';
+            echo '</div>';
+            echo '<p class="comment-content">' . nl2br(htmlspecialchars($reply_row['ReplyContent'], ENT_QUOTES, 'UTF-8')) . '</p>';
+            echo '</div>';
+            echo '</li>';
+        }
+        echo '</ul>';
     }
 
     // 分页链接
@@ -141,7 +175,7 @@ if(isset($_GET['store_number'])) {
             });
         }
     </script>';
-    
+
 } else {
     echo "未提供商店编号。";
 }

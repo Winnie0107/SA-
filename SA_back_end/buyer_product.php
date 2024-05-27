@@ -2,8 +2,10 @@
 session_start();
 
 $user_id = $_SESSION['user_id'];
+$buyer_id = $_SESSION['user_id'];
 
 $link = mysqli_connect('localhost', 'root', '12345678', 'box');
+
 
 if (!$link) {
     die("連接錯誤：" . mysqli_connect_error());
@@ -26,9 +28,13 @@ foreach ($all_categories as $index => $category) {
     echo '<div role="tabpanel" class="tab-pane ' . $class . '" id="' . str_replace(' ', '', $category) . '">';
     echo '<div class="row mt-40">'; // 將這行移到此處
     if ($category == '全部') {
-        $query = "SELECT * FROM product WHERE quantity > 0";
+        $query = "SELECT * FROM product 
+                  WHERE quantity > 0 AND seller_ID NOT IN 
+                  (SELECT seller FROM blacklist WHERE buyer = '$buyer_id')";
     } else {
-        $query = "SELECT * FROM product WHERE category='$category' AND quantity > 0";
+        $query = "SELECT * FROM product 
+                  WHERE category='$category' AND quantity > 0 AND seller_ID NOT IN 
+                  (SELECT seller FROM blacklist WHERE buyer = '$buyer_id')";
     }
     $result = mysqli_query($link, $query);
 

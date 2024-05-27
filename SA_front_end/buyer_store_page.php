@@ -17,7 +17,39 @@ session_start();
             width: 385px;
             height: 270px;
         }
-       
+        .media {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+.media-left {
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.media-body {
+    flex: 1;
+}
+.comment-info {
+    margin-bottom: 10px;
+}
+.comment-author {
+    font-weight: bold;
+}
+.comment-content {
+    color: #333;
+    font-size: 16px;
+}
+.circular-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.reply {
+    margin-left: 40px; /* 調整此值以達到所需的縮進效果 */
+}
 
     </style>
 	<?php include '_head.html'; ?>
