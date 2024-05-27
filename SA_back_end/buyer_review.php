@@ -36,7 +36,7 @@ if(isset($_GET['store_number'])) {
     $query = "SELECT review.*, user.account AS buyer_account, user.img AS buyer_img, `order item`.PNumber, product.PName
               FROM review
               INNER JOIN user ON review.ID = user.ID
-              INNER JOIN `order item` ON review.OINumber = `order item`.OINumber
+              INNER JOIN order item ON review.OINumber = `order item`.OINumber
               INNER JOIN product ON `order item`.PNumber = product.PNumber
               WHERE review.STNumber = ?
               LIMIT ? OFFSET ?";
@@ -85,7 +85,6 @@ if(isset($_GET['store_number'])) {
         if ($row['img'] != NULL) {
             echo '<img class="review-image" src="data:image/jpeg;base64,' . base64_encode($row['img']) . '" alt="Review Image" />';
         }
-        
         echo '</li>';
 
         // 查詢回覆
