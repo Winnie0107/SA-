@@ -139,11 +139,6 @@ mysqli_close($link);
             <label for="reviewContent">留下你的評論</label>
             <textarea class="form-control" id="reviewContent" name="review_content" rows="3" required></textarea>
           </div>
-          <div class="form-group">
-            <label for="reviewImage">上傳圖片</label>
-            <input type="file" class="form-control-file" id="reviewImage" name="review_image">
-          </div>
-          <button type="submit" class="btn btn-primary">提交</button>
         </form>
       </div>
     </div>

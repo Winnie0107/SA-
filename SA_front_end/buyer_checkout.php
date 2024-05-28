@@ -194,7 +194,7 @@
                 LogisticsType: 'CVS',
                 LogisticsSubType: 'UNIMARTC2C',
                 IsCollection: 'Y',
-                ServerReplyURL: 'https://a9a1-125-229-150-20.ngrok-free.app/SA-/SA_back_end/ecpay_reply711.php', 
+                ServerReplyURL: 'https://2a01-125-229-150-20.ngrok-free.app/SA-/SA_back_end/ecpay_reply711.php', 
                 ExtraData: '',
                 Device: 0,
             };
@@ -224,7 +224,7 @@
                 LogisticsType: 'CVS',
                 LogisticsSubType: 'FAMIC2C',
                 IsCollection: 'Y',
-                ServerReplyURL: 'https://a9a1-125-229-150-20.ngrok-free.app/SA-/SA_back_end/ecpay_reply.php', 
+                ServerReplyURL: 'https://2a01-125-229-150-20.ngrok-free.app/SA-/SA_back_end/ecpay_reply.php', 
                 Device: 0,
             };
 

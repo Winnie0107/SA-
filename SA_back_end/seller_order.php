@@ -35,6 +35,8 @@ $query = "SELECT p_order.ONumber,
                 p_order.date AS order_date, 
                 p_order.total_price, 
                 p_order.phone_number, 
+                p_order.payment, 
+                p_order.shipping_store,
                 p_order.state,
                 p_order.ship, 
                 GROUP_CONCAT(`order item`.quantity SEPARATOR '<br>') AS quantity,
@@ -63,6 +65,8 @@ echo '<th>數量</th>';
 echo '<th>總價</th>';
 echo '<th>用戶名稱</th>';
 echo '<th>電話號碼</th>';
+echo '<th>取貨門市</th>';
+echo '<th>付款狀態</th>';
 echo '<th>操作</th>';
 echo '</tr>';
 echo '</thead>';
@@ -76,6 +80,10 @@ while ($row = mysqli_fetch_assoc($result)) {
     echo '<td>$' . $row['total_price'] . '</td>';
     echo '<td>' . $row['account'] . '</td>';
     echo '<td>' . $row['phone_number'] . '</td>';
+    echo '<td>' . $row['shipping_store'] . '</td>';
+    echo '<td>';
+    echo ($row['payment'] == 1) ? '已付款' : '貨到付款'; // 顯示付款狀態
+    echo '</td>';
     
     echo '<td>';
     if ($row['ship'] == 1) {

@@ -153,8 +153,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $obj->HashIV = 'v77hoKGq4kWxNNIS';
 
             // 基本參數
-            $obj->Send['ReturnURL'] = 'https://a9a1-125-229-150-20.ngrok-free.app/SA-/SA_back_end/ecpay_payment.php';
-            $obj->Send['OrderResultURL']= 'https://a9a1-125-229-150-20.ngrok-free.app/SA-/SA_back_end/ecpay_payment.php';
+            $obj->Send['ReturnURL'] = 'https://2a01-125-229-150-20.ngrok-free.app/SA-/SA_back_end/ecpay_payment.php';
+            $obj->Send['OrderResultURL']= 'https://2a01-125-229-150-20.ngrok-free.app/SA-/SA_back_end/ecpay_payment.php';
             $obj->Send['MerchantTradeNo'] = 'Test' . time();
             $obj->Send['MerchantTradeDate'] = date('Y/m/d H:i:s');
             $obj->Send['TotalAmount'] = $total_amount; // 使用累計的總金額

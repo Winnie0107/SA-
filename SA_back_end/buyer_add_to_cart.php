@@ -25,7 +25,7 @@ if (isset($_GET['product_number'])) {
     $total_cart_quantity = array_key_exists($product_number, $_SESSION['cart']) ? $_SESSION['cart'][$product_number] : 0;
 
     if ($total_cart_quantity >= $product_quantity) {
-        echo "<script>alert('已經加入所有庫存'); window.location.href = 'http://localhost/SA-/SA_front_end/buyer_product.php';</script>";
+        echo "<script>alert('已經加入所有庫存'); window.location.href = '../SA_front_end/buyer_product.php';</script>";
         exit();
     }
 
@@ -38,7 +38,7 @@ if (isset($_GET['product_number'])) {
     mysqli_stmt_bind_param($stmt, "ii", $cart_id, $product_number);
 
     if (mysqli_stmt_execute($stmt)) {
-        echo "<script>alert('成功加入購物車！'); window.location.href = 'http://localhost/SA-/SA_front_end/buyer_product.php';</script>";
+        echo "<script>alert('成功加入購物車！'); window.location.href = '../SA_front_end/buyer_product.php';</script>";
     } else {
         echo "Error: " . mysqli_error($link);
     }

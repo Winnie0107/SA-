@@ -15,14 +15,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $review_image = null;
     if (isset($_FILES['review_image']) && $_FILES['review_image']['error'] === UPLOAD_ERR_OK) {
         $image_data = file_get_contents($_FILES['review_image']['tmp_name']);
-        $review_image = base64_encode($image_data);
+        $review_image = mysqli_real_escape_string($link, $image_data);
     }
+
+    var_dump($_FILES['review_image']);
 
     // 查询产品对应的商店编号
     $query_store_number = "SELECT store_info.STNumber FROM product
                            INNER JOIN store_info ON product.seller_ID = store_info.seller_ID
                            WHERE product.PNumber IN (
-                               SELECT `order item`.PNumber FROM order item
+                               SELECT `order item`.PNumber FROM `order item`
                                WHERE `order item`.ONumber = ?
                            )";
     $stmt_store_number = mysqli_prepare($link, $query_store_number);
@@ -44,6 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $query_insert_review = "INSERT INTO `review` (`OINumber`, `ID`, `ReviewContent`, `img`, `ReviewTime`, `STNumber`) VALUES (?, ?, ?, ?, NOW(), ?)";
     $stmt_insert_review = mysqli_prepare($link, $query_insert_review);
     mysqli_stmt_bind_param($stmt_insert_review, 'sissi', $order_item_number, $user_id, $review_content, $review_image, $store_number);
+
 
 
     if (mysqli_stmt_execute($stmt_insert_review)) {
